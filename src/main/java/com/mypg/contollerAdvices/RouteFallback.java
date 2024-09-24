@@ -10,5 +10,4 @@ public class RouteFallback {
     public String fallback(){
         return "redirect:/";
     }
-
 }

@@ -31,7 +31,7 @@ public class SecurityConfig {
             .requestMatchers("/owner/**").hasRole("OWNER")
             .requestMatchers("/register/**","/login/**").permitAll()
             .anyRequest().authenticated()).formLogin(withDefaults())
-                .logout(withDefaults());
+                .logout(withDefaults()).httpBasic(withDefaults());
         return http.build();
     }
 

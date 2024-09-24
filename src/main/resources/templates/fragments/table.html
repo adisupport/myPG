@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:fragment="roomTable(rooms)" class="room-table">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Room Number</th>
+                <th scope="col">Type</th>
+                <th scope="col">Total Beds</th>
+                <th scope="col">Vacant Beds</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="room: ${rooms}">
+                <td th:text="${room.roomNumber?:'101'}">101</td>
+                <td th:text="${room.type?:'AC'}">AC</td>
+                <td th:text="${room.noOfBeds?:'5'}">5</td>
+                <td th:text="${room.noOfBedEmpty?:'2'}">2</td>
+                <td th:text="${room.status?:'Available'}">Available</td>
+                <td><button>Book</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
