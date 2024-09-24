@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/signup")
-public class UserController {
+@RequestMapping("/register")
+public class SignUpController {
     String[] user = {"Name1","Name2","Name3"};
 
     @GetMapping()
