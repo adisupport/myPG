@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <th:block th:fragment="add_room(room1)">
+        <form th:if="${true}" th:action="@{/owner/room}" th:object="${room1}" method="post">
+            <!-- Room Number -->
+            <label for="number">Room Number:</label>
+            <input type="number" id="number" th:field="*{room.number}" required /><br>
+
+            <!-- Floor -->
+            <label for="floor">Floor:</label>
+            <input type="number" id="floor" th:field="*{floor}" required /><br>
+
+            <!-- Number of Beds -->
+            <label for="noOfBeds">Number of Beds:</label>
+            <input type="number" id="noOfBeds" th:field="*{noOfBeds}" required /><br>
+
+            <!-- Room Type -->
+            <label for="type">Room Type:</label>
+            <input type="text" id="type" th:field="*{type}" required /><br>
+
+            <!-- Number of Empty Beds -->
+            <label for="noOfBedEmpty">Number of Empty Beds:</label>
+            <input type="number" id="noOfBedEmpty" th:field="*{noOfBedEmpty}" required /><br>
+
+            <!-- Room Status (Assuming RoomStatus is an enum) -->
+            <label for="status">Room Status:</label>
+            <select id="status" th:field="*{status}">
+                <option th:each="status : ${T(com.example.RoomStatus).values()}"
+                        th:value="${status}"
+                        th:text="${status}">Status</option>
+            </select><br>
+
+            <!-- Submit Button -->
+            <button type="submit">Add Room</button>
+        </form>
+    </th:block>
+</body>
+</html>
