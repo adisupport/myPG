@@ -1,38 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
-<head th:replace="~{fragments/head::head(${pageName.toUpperCase()})}">
+<html lang="en" th:fragment="dashboard(title,content)">
+<head th:replace="fragments/head::head(${title.toUpperCase()})">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <!--    <div th:replace="~{fragments/sidebar::sidebar-blue(${content})}"></div>-->
 
-<div class="page">
+<div class="page" th:fragment="sidebar-blue(content)">
     <div class="sidebar-2 ">
         <div class="sidebar-toggler">
             <i class='bx bxs-chevron-right toggle'></i>
         </div>
         <div class="sidebar-2-header">
             <img width="80%"
-                 src="https://th.bing.com/th/id/OIP.Sc-pGDkmKH6dLZgbWk-3uAHaHa?w=175&h=180&c=7&r=0&o=5&pid=1.7"
-            alt="logo">
+                 src="https://th.bing.com/th/id/OIP.Sc-pGDkmKH6dLZgbWk-3uAHaHa?w=175&h=180&c=7&r=0&o=5&pid=1.7">
         </div>
         <div class="sidebar-2-body">
             <a class="tab" href="owner?page=guests">
-                <i class='bx bxs-home icon'></i>
-                <span class="text tab-text">HOME</span>
-            </a>
-            <a class="tab" href="owner?page=guests">
                 <i class='bx bxs-user-rectangle icon'></i>
-                <span class="text tab-text">GUESTS</span>
+                <span class="text tab-text">GUEST</span>
             </a>
-            <a class="tab" href="owner/room">
+            <a class="tab" href="owner?page=rooms">
                 <i class='bx bx-building-house icon'></i>
-                <span class="text tab-text">ROOMS</span>
+                <span class="text tab-text">ROOM</span>
             </a>
             <a class="tab" href="owner?page=invoices">
                 <i class='bx bx-receipt icon'></i>
-                <span class="text tab-text">INVOICES</span>
+                <span class="text tab-text">INVOICE</span>
             </a>
             <a class="tab" href="/owner?page=complains">
                 <i class='bx bx-comment-edit icon'></i>
@@ -57,25 +52,25 @@
         </div>
     </div>
     <div class="content">
-        <th:block th:if="${pageName.equals('home')}">
+        <th:block th:if="${content.equals('home')}">
             <div th:replace="~{owner/pages/home::page}"></div>
         </th:block>
-        <th:block th:if="${pageName.equals('rooms')}">
-            <div th:replace="~{owner/pages/room::page(${rooms},${room},${status},${errormessage})}"></div>
+        <th:block th:if="${content.equals('rooms')}">
+            <div th:replace="~{owner/pages/room::page(room)}"></div>
         </th:block>
-        <th:block th:if="${pageName.equals('guests')}">
+        <th:block th:if="${content.equals('guests')}">
             <div th:replace="~{owner/pages/guest::page}"></div>
         </th:block>
-        <th:block th:if="${pageName.equals('complains')}">
+        <th:block th:if="${content.equals('complains')}">
             <div th:replace="~{owner/pages/complain::page}"></div>
         </th:block>
-        <th:block th:if="${pageName.equals('invoices')}">
+        <th:block th:if="${content.equals('invoices')}">
             <div th:replace="~{owner/pages/invoice::page}"></div>
         </th:block>
     </div>
 </div>
 
 
-<th:block th:replace="~{fragments/footer::footer}"></th:block>
+<th:block th:replace="fragments/footer::footer"></th:block>
 </body>
 </html>

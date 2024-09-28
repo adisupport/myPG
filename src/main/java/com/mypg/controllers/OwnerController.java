@@ -20,7 +20,7 @@ public class OwnerController {
     public String getPage(@RequestParam(value = "page", defaultValue = "") String pageRequest, Model model){
         log.debug(pageRequest);
         if(Objects.equals(pageRequest, "")){
-            model.addAttribute("page", "home");
+            model.addAttribute("pageName", "home");
             return "owner/index";
         }
         String page = "home";
@@ -34,7 +34,7 @@ public class OwnerController {
         }else if(pageRequest.equals("complains")){
             page = "complains";
         }
-        model.addAttribute("page",page);
+        model.addAttribute("pageName",page);
         return "owner/index";
     }
 }

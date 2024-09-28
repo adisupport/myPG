@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
 <body>
-    <div th:fragment="roomTable(rooms)" class="room-table">
+    <div th:if="${rooms!=null}" th:fragment="roomTable(rooms)" class="room-table">
         <table class="table">
             <thead>
             <tr>
@@ -19,15 +20,23 @@
             </thead>
             <tbody>
             <tr th:each="room: ${rooms}">
-                <td th:text="${room.roomNumber?:'101'}">101</td>
-                <td th:text="${room.type?:'AC'}">AC</td>
-                <td th:text="${room.noOfBeds?:'5'}">5</td>
-                <td th:text="${room.noOfBedEmpty?:'2'}">2</td>
-                <td th:text="${room.status?:'Available'}">Available</td>
-                <td><button>Book</button></td>
+
+                <td class="table-light" th:text="${room.number?:'101'}">101</td>
+                <td class="table-light" th:text="${room.type?:'AC'}">AC</td>
+                <td class="table-light" th:text="${room.noOfBeds?:'5'}">5</td>
+                <td class="table-light" th:text="${room.noOfBedEmpty?:'2'}">2</td>
+                <td class="table-light" th:text="${room.status?:'Available'}">Available</td>
+                <td><div>
+                    <button class="btn btn-primary"  data-bs-target="#view_room_model" data-bs-toggle="modal" data-bs-placement="top" title="View Details"><i class='bx bxs-book-open'></i></button>
+                    <button class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Room"><i class='bx bxs-trash icon'></i></button>
+                    <button class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-target="" data-bs-placement="top" title="Edit Room"><i class='bx bxs-edit-alt'></i></button>
+                </div></td>
             </tr>
             </tbody>
         </table>
+    </div>
+    <div th:else>
+        No Room
     </div>
 </body>
 </html>

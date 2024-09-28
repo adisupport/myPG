@@ -1,0 +1,18 @@
+    /* Change tooltip background and text color */
+.tooltip-inner {
+    background-color: #333333 !important; /* Custom background color */
+    color: #ffffff !important; /* Custom text color */
+    font-size: 14px; /* Custom font size */
+    padding: 8px; /* Custom padding */
+    border-radius: 8px !important;
+}
+
+/* Customize tooltip arrow */
+.tooltip-arrow {
+    border-top-color: #333333 !important; /* Match the background color */
+}
+
+/* Add custom shadow to tooltip */
+.tooltip {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
