@@ -25,6 +25,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain config(HttpSecurity http) throws Exception{
+
         http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry
             .requestMatchers("/guest/**").hasRole("GUEST")
             .requestMatchers("/admin/**").hasRole("ADMIN")
@@ -32,6 +33,7 @@ public class SecurityConfig {
             .requestMatchers("/register/**","/login/**").permitAll()
             .anyRequest().authenticated()).formLogin(withDefaults())
                 .logout(withDefaults()).httpBasic(withDefaults());
+
         return http.build();
     }
 

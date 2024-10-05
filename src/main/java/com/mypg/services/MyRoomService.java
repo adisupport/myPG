@@ -1,6 +1,8 @@
 package com.mypg.services;
 
 import com.mypg.exceptions.RoomAlreadyExist;
+import com.mypg.models.Guest;
+import com.mypg.models.Image;
 import com.mypg.models.Room;
 import com.mypg.models.RoomStatus;
 import com.mypg.repo.RoomRepo;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service("MyRoomService")
@@ -22,7 +25,7 @@ public class MyRoomService implements RoomService{
 
 
     @Override
-    public void addRoom(Integer roomNumber, Integer floor, Integer noOfBeds, String type, RoomStatus status) throws RoomAlreadyExist {
+    public void addRoom(Integer roomNumber, Integer floor, Integer noOfBeds, String type, RoomStatus status,Integer noOfEmptyBeds) throws RoomAlreadyExist {
         Optional<Room> room = roomRepo.findByNumber(roomNumber);
         if(room.isEmpty()) {
             Room newRoom = new Room();
@@ -31,6 +34,7 @@ public class MyRoomService implements RoomService{
             newRoom.setNoOfBeds(noOfBeds);
             newRoom.setStatus(status);
             newRoom.setType(type);
+            newRoom.setNoOfBedEmpty(noOfEmptyBeds);
             roomRepo.save(newRoom);
         }else{
             throw new RoomAlreadyExist("Room already exist "+ roomNumber);
@@ -38,23 +42,45 @@ public class MyRoomService implements RoomService{
     }
 
     @Override
-    public void removeRoom(Integer roomNumber) {
-
+    public void removeRoom(Integer roomNumber) throws NoSuchElementException {
+        Optional<Room> room = roomRepo.findById(roomNumber);
+        if(room.isPresent()){
+            Room roomToRemove = room.get();
+            roomToRemove.setIsDeleted(true);
+            roomRepo.save(room.get());
+        }else{
+            throw new NoSuchElementException("Room not found");
+        }
     }
 
     @Override
-    public void changeRoomStatus(Integer RoomNumber, RoomStatus status) {
-
+    public void changeRoomStatus(Integer roomNumber, RoomStatus status) {
+        Optional<Room> room = roomRepo.findById(roomNumber);
+        if(room.isPresent()){
+            Room room1 = room.get();
+            room1.setStatus(status);
+            roomRepo.save(room1);
+        }
     }
 
     @Override
     public void changeRoomNumber(Integer roomNumber, Integer newRoomNumber) {
-
+        Optional<Room> room = roomRepo.findById(roomNumber);
+        if(room.isPresent()){
+            Room room1 = room.get();
+            room1.setNumber(newRoomNumber);
+            roomRepo.save(room1);
+        }
     }
 
     @Override
     public void changeRoomFloor(Integer roomNumber, Integer newFloor) {
-
+        Optional<Room> room = roomRepo.findById(roomNumber);
+        if(room.isPresent()){
+            Room room1 = room.get();
+            room1.setFloor(newFloor);
+            roomRepo.save(room1);
+        }
     }
 
     @Override
@@ -70,11 +96,38 @@ public class MyRoomService implements RoomService{
 
     @Override
     public void addImg(Integer roomNumber, String imgURL) {
-
+        Optional<Room> room = roomRepo.findById(roomNumber);
+        if(room.isPresent()){
+            Room room1 = room.get();
+            Image img = new Image();
+            img.setImgURL(imgURL);
+            room1.getImages().add(img);
+            roomRepo.save(room1);
+        }
     }
 
     @Override
-    public Room getRoom(Integer roomID) {
-        return null;
+    public Room getRoom(Integer roomID) throws NoSuchElementException{
+        Optional<Room> room = roomRepo.findById(roomID);
+        if(room.isEmpty()) {
+            throw new NoSuchElementException("Invalid Room Number");
+        }
+        return room.get();
+    }
+
+    @Override
+    public void allocateGuest(Integer roomNumber,Guest guest) throws NoSuchElementException {
+        Optional<Room> optionalRoom = roomRepo.findByNumber(roomNumber);
+        if(optionalRoom.isPresent()){
+            Room room = optionalRoom.get();
+            if(guest!=null){
+                room.getGuestList().add(guest);
+                roomRepo.save(room);
+            }else{
+                throw new NoSuchElementException("Invalid Guest");
+            }
+        }else{
+            throw new NoSuchElementException("Room not found");
+        }
     }
 }

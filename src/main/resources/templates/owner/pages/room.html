@@ -3,10 +3,10 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="add_room_model_lable">ADD ROOM FORM</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body ">
                     <form  th:action="@{/owner/room}" th:object="${room}" method="post">
                         <!-- Room Number -->
                         <label for="number" class="form-label">Room Number:
@@ -56,81 +56,31 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="view_room_model" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form  th:action="@{/owner/room}" th:object="${room}" method="post">
-                        <!-- Room Number -->
-                        <label for="number" class="form-label">Room Number:
-                            <input class="form-control" type="number" id="number" placeholder="101" value="101" th:field="*{number}" required /><br>
-                        </label>
-
-                        <!-- Floor -->
-                        <label for="floor" class="form-label">Floor:
-                            <input class="form-control" type="number" id="floor" placeholder="1" value="1" th:field="*{floor}" required /><br>
-                        </label>
-
-                        <!-- Number of Beds -->
-                        <label for="noOfBeds" class="form-label">Number of Beds:
-                            <input type="number" class="form-control" id="noOfBeds" placeholder="2" value="2" th:field="*{noOfBeds}" required /><br>
-                        </label>
-
-                        <!-- Room Type -->
-                        <label for="type" class="form-label"> Room Type:
-                            <input type="text" id="type" th:field="*{type}" placeholder="2 Sharing" value="2 Sharing" class="form-control" required /><br>
-                        </label>
-
-                        <!-- Number of Empty Beds -->
-                        <label for="noOfBedEmpty" class="form-label">Number of Empty Beds:
-                            <input type="number" id="noOfBedEmpty" class="form-control" placeholder="4" value="4" th:field="*{noOfBedEmpty}" required /><br>
-                        </label>
-
-                        <!-- Room Status (Assuming RoomStatus is an enum) -->
-                        <label for="status" class="form-label">Room Status:
-                            <select class="form-select" id="status" th:field="*{status}">
-                                <option th:each="state : ${RoomStatus}"
-                                        th:value="${state}"
-                                        th:text="${state}">Status</option>
-                            </select><br>
-                        </label>
-
-                        <!-- Submit Button -->
-
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button class="btn btn-primary" type="submit">Add Room</button>
-                        </div>
-                    </form>
-                </div>
-
-
-            </div>
-        </div>
-    </div>
     <div class="room-page">
-        <div class="room-actions">
-            <div class="room-search">
+        <div class="room-actions row">
+            <div class="room-search col-sm-7 col-lg-5">
                 <label class="input-group">
-                    <span class="input-group-text">Room Number</span>
-                    <input placeholder="108" type="number" class="form-control">
-                    <button class="input-group-text btn btn-dark">Search</button>
+                    <span class="input-group-text fs-6 fw-semibold">Room Number</span>
+                    <input placeholder="108" type="number" id="searchInput" class="form-control">
+                    <button class="input-group-text btn btn-dark" onclick="searchTable()">Search</button>
                 </label>
 
             </div>
-            <button class="btn btn-dark" data-bs-target="#add_room_model" data-bs-toggle="modal">Add Room</button>
+            <div class="col-lg-2 col-4  mt-2 text-end">
+                <a href="#" class="btn btn-warning" data-bs-target="#add_room_model" data-bs-toggle="modal">Add Room</a>
+            </div>
+
         </div>
         <div th:if="${error.length()>0}" class="error-message text-bg-danger text-warning">
             <th:block th:text="${error}"></th:block>
             <i class='btn-close'></i>
         </div>
+        <div class="row">
+            <span class="text-dark fw-normal fs-3">Room List</span>
+            <hr/>
+        </div>
         <th:block th:if="${!rooms.isEmpty()}">
-         <div th:replace="fragments/table.html::roomTable(${rooms})"></div>
+         <div th:replace="~{fragments/table.html::roomTable(${rooms})}"></div>
         </th:block>
         <th:block th:if="${rooms.isEmpty()}">
             <div>No Room In Record</div>

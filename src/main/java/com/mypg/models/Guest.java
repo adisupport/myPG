@@ -9,10 +9,7 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-public class Guest {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+public class Guest extends BaseModel{
     @OneToOne
     Profile profile;
     String name;
