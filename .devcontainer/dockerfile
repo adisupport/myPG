@@ -1,0 +1,36 @@
+# Use the official Maven image to build the Spring Boot app
+FROM maven:3.8.7-openjdk-17 as builder
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the source code to the working directory
+COPY . .
+
+# Package the Spring Boot application (you can skip this if you want live development)
+RUN mvn clean package -DskipTests
+
+# Use the official Java runtime for running the Spring Boot application
+FROM openjdk:17-jdk-slim
+
+# Set the working directory for running the application
+WORKDIR /app
+
+# Copy the built app from the builder stage
+COPY --from=builder /app/target/*.jar /app/app.jar
+
+# Install MySQL Client
+RUN apt-get update && apt-get install -y mysql-client
+
+# Set up environment variables for MySQL connection
+ENV MYSQL_HOST=localhost
+ENV MYSQL_PORT=3306
+ENV MYSQL_USER=root
+ENV MYSQL_PASSWORD=root
+ENV MYSQL_DATABASE=mydatabase
+
+# Expose the port the app runs on
+EXPOSE 8080
+
+# Command to run the Spring Boot app
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
