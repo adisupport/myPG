@@ -18,23 +18,23 @@
             alt="logo">
         </div>
         <div class="sidebar-2-body">
-            <a class="tab" href="owner?page=guests">
+            <a class="tab" href="/owner">
                 <i class='bx bxs-home icon'></i>
                 <span class="text tab-text">HOME</span>
             </a>
-            <a class="tab" href="owner?page=guests">
+            <a class="tab" href="/owner/guest">
                 <i class='bx bxs-user-rectangle icon'></i>
                 <span class="text tab-text">GUESTS</span>
             </a>
-            <a class="tab" href="owner/room">
+            <a class="tab" href="/owner/room">
                 <i class='bx bx-building-house icon'></i>
                 <span class="text tab-text">ROOMS</span>
             </a>
-            <a class="tab" href="owner?page=invoices">
+            <a class="tab" href="/owner/invoice">
                 <i class='bx bx-receipt icon'></i>
                 <span class="text tab-text">INVOICES</span>
             </a>
-            <a class="tab" href="/owner?page=complains">
+            <a class="tab" href="/owner/complain">
                 <i class='bx bx-comment-edit icon'></i>
                 <span class="text tab-text">COMPLAINS</span>
             </a>
@@ -56,20 +56,20 @@
             </div>
         </div>
     </div>
-    <div class="content">
-        <th:block th:if="${pageName.equals('home')}">
+    <div class="content p-3 overflow-hidden">
+        <th:block th:if="${pageName!= null && pageName.equals('home')}">
             <div th:replace="~{owner/pages/home::page}"></div>
         </th:block>
-        <th:block th:if="${pageName.equals('rooms')}">
+        <th:block th:if="${pageName!= null && pageName.equals('room')}">
             <div th:replace="~{owner/pages/room::page(${rooms},${room},${status},${errormessage})}"></div>
         </th:block>
-        <th:block th:if="${pageName.equals('guests')}">
+        <th:block th:if="${pageName!= null && pageName.equals('guest')}">
             <div th:replace="~{owner/pages/guest::page}"></div>
         </th:block>
-        <th:block th:if="${pageName.equals('complains')}">
+        <th:block th:if="${pageName!= null && pageName.equals('complain')}">
             <div th:replace="~{owner/pages/complain::page}"></div>
         </th:block>
-        <th:block th:if="${pageName.equals('invoices')}">
+        <th:block th:if="${pageName!= null && pageName.equals('invoice')}">
             <div th:replace="~{owner/pages/invoice::page}"></div>
         </th:block>
     </div>
