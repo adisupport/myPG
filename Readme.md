@@ -72,7 +72,8 @@ sudo apt install docker-compose
 ```
 5. Give Permission To /.mvnw
 ```
-chmod -x ./mvnw
+chmod +x ./mvnw
+
 ```
 6. spining up server
 ```
