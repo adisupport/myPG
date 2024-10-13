@@ -170,7 +170,7 @@
 .room-actions{
     display: flex;
     width: 100%;
-    padding: 15px 20px 15px 10px;
+    padding: 15px 20px 15px 0;
     position: sticky;
     margin-bottom: 18px;
     top: 0;
@@ -205,4 +205,17 @@
     background-color: yellow;!important;
     color: yellow;
 
+}
+.action-card{
+    padding: 5px 10px;
+    /*background-color: #14c3c8;*/
+    /*color: white;*/
+    width: max-content;
+    font-size: 12px;
+    border: none;
+    border-radius: 8px;
+}
+.action-card-active{
+    background-color: #1cac07;
+    color: white;
 }

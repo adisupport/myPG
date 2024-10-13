@@ -6,7 +6,9 @@
 </head>
 
 <body>
-    <div th:if="${rooms!=null}" th:fragment="roomTable(rooms)" class="room-table">
+
+    <div th:fragment="roomTable(rooms)" class="room-table">
+        <div th:if="${rooms!=null}">
         <table class="table">
             <thead>
             <tr>
@@ -34,9 +36,20 @@
             </tr>
             </tbody>
         </table>
+        </div>
+        <div th:if ="${rooms == null}">
+            No Room
+        </div>
     </div>
-    <div th:else>
-        No Room
+    <div th:fragment="guestTable(guests)" class="room-table">
+        <div th:if="${guests != null}">
+
+        </div>
+        <div th:if="${guests == null}">
+            No Guest Record
+        </div>
+
     </div>
+
 </body>
 </html>

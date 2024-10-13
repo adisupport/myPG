@@ -16,6 +16,7 @@ public class GuestController {
 
         model.addAttribute("pageName", "guest");
         model.addAttribute("form",new GuestDTO());
+
         return "owner/index";
     }
 }

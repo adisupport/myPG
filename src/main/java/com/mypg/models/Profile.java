@@ -5,18 +5,27 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
 @Setter
 @Getter
-public class Profile extends BaseModel{
+public class Profile{
+    private String firstName;
+    private String lastName;
+    private String email;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
-    String name;
-    String address;
-    String phone;
-    String email;
-    String idProof;
+    private Long mobile;
+    private String address;
+    private String state;
+    private String city;
+    private int zipcode;
+    private String nationality;
+    private String gender;
+    private Date dateOfBirth;
+    private String passportNumber;
+    private String aadhaarNumber;
     @OneToOne
     User user;
+
 }

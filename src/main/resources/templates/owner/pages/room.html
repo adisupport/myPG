@@ -57,6 +57,14 @@
         </div>
     </div>
     <div class="room-page">
+        <div class="row">
+            <span class="text-dark fw-normal fs-3">Room List</span>
+            <hr/>
+        </div>
+        <div th:if="${error != null && error.length()>0}" class="error-message text-bg-danger text-warning">
+            <th:block th:text="${error}"></th:block>
+            <i class='btn-close'></i>
+        </div>
         <div class="room-actions row">
             <div class="room-search col-sm-7 col-lg-5">
                 <label class="input-group">
@@ -67,23 +75,28 @@
 
             </div>
             <div class="col-lg-2 col-4  mt-2 text-end">
-                <a href="#" class="btn btn-warning" data-bs-target="#add_room_model" data-bs-toggle="modal">Add Room</a>
+                <a href="#" class="btn btn-warning" data-bs-target="#add_room_model" data-bs-toggle="modal"> Add Room</a>
             </div>
 
         </div>
-        <div th:if="${error.length()>0}" class="error-message text-bg-danger text-warning">
-            <th:block th:text="${error}"></th:block>
-            <i class='btn-close'></i>
+        <div>
+            <div>
+                <button class="action-card action-card-active">
+                    ALL
+                </button>
+                <button class="action-card">
+                    Available Room
+                </button>
+                <button class="action-card">
+                    Filled
+                </button>
+            </div>
+            <th:block th:if="${!rooms.isEmpty()}">
+             <div th:replace="~{fragments/table.html::roomTable(${rooms})}"></div>
+            </th:block>
+            <th:block th:if="${rooms.isEmpty()}">
+                <div>No Room In Record</div>
+            </th:block>
         </div>
-        <div class="row">
-            <span class="text-dark fw-normal fs-3">Room List</span>
-            <hr/>
-        </div>
-        <th:block th:if="${!rooms.isEmpty()}">
-         <div th:replace="~{fragments/table.html::roomTable(${rooms})}"></div>
-        </th:block>
-        <th:block th:if="${rooms.isEmpty()}">
-            <div>No Room In Record</div>
-        </th:block>
     </div>
 </div>

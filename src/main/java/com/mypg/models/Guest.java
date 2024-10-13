@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Setter
@@ -12,7 +13,8 @@ import java.util.List;
 public class Guest extends BaseModel{
     @OneToOne
     Profile profile;
-    String name;
+    private Date checkIN;
+    private Date checkOut;
     LivingStatus status;
     @ManyToOne(fetch = FetchType.EAGER)
     Room room;

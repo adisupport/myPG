@@ -1,29 +1,45 @@
 <div class="main" th:fragment="page">
-        <div class="modal fade" id="add_room_model" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                        <div class="modal-content">
-                                <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="add_room_model_lable">ADD ROOM FORM</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body ">
-                                        <form  th:action="@{/owner/guest}" th:object="${form}" method="post">
-                                                <label>
-                                                        Number <input type="number" pattern="[0-9]${10}" name="" th:field="${number}"/>
-                                                </label>
-                                                <label>
-                                                        name <input type="text" name="name" th:field="@{name}"/>
-                                                </label>
+    <div class="room-page">
+            <div class="row">
+                <span class="text-dark fw-normal fs-3">Guest List</span>
+                <hr/>
+            </div>
+            <div th:if="${error != null && error.length()>0}" class="error-message text-bg-danger text-warning">
+                <th:block th:text="${error}"></th:block>
+                <i class='btn-close'></i>
+            </div>
+            <div class="room-actions row">
+                <div class="room-search col-sm-7 col-lg-5">
+                    <label class="input-group">
+                        <span class="input-group-text fs-6 fw-semibold">Mobile Number</span>
+                        <input placeholder="108" type="number" id="searchInput" class="form-control">
+                        <button class="input-group-text btn btn-dark" onclick="searchTable()">Search</button>
+                    </label>
 
-                                                <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <button class="btn btn-primary" type="submit">Add Room</button>
-                                                </div>
-                                        </form>
-                                </div>
-
-
-                        </div>
                 </div>
-        </div>
+                <div class="col-lg-2 col-4  mt-2 text-end">
+                    <a href="#" class="btn btn-warning" data-bs-target="#add_room_model" data-bs-toggle="modal"> Add Guest</a>
+                </div>
+
+            </div>
+            <div>
+                <div>
+                    <button class="action-card action-card-active">
+                        ALL
+                    </button>
+                    <button class="action-card">
+                        Available Room
+                    </button>
+                    <button class="action-card">
+                        Filled
+                    </button>
+                </div>
+                <th:block th:if="${guests!=null && !guests.isEmpty()}">
+                    <div th:replace="~{fragments/table.html::guestTable(${guests})}"></div>
+                </th:block>
+                <th:block th:if="${guests == null}">
+                    <div class="d-flex vh-75 justify-content-center align-items-center  fs-2 text-success">No Guest Record</div>
+                </th:block>
+            </div>
+    </div>
 </div>

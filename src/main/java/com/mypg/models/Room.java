@@ -21,6 +21,7 @@ public class Room{
     private Integer noOfBedEmpty;
     private RoomStatus status;
     private Boolean isDeleted;
+    private Double rent;
     @LastModifiedDate
     private Date modifiedAt;
 

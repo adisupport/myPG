@@ -1,5 +1,8 @@
 
-
+let rooms;
+window.addEventListener('load',()=>{
+    rooms = document.querySelectorAll(".table tr");
+})
 
 document.querySelector('.sidebar-toggler').addEventListener('click',()=>{
     let sidebar_open_width = '200px';
@@ -15,7 +18,7 @@ document.querySelector('.sidebar-toggler').addEventListener('click',()=>{
     }
 
     document.documentElement.style.setProperty('--sidebar-sliding-speed','0.65s');
-    if(localStorage.getItem('sidebarStatus') != 'open'){
+    if(localStorage.getItem('sidebarStatus') !== 'open'){
         localStorage.setItem('sidebarStatus','open');
         document.documentElement.style.setProperty('--sidebar-width',sidebar_open_width);
         document.documentElement.style.setProperty('--tab-text-show','inline');
@@ -63,24 +66,24 @@ errorWindow.forEach((element)=>{
 
 
 
-
 // Search Box Implementation
-function searchTable() {
+function searchTable(col= 0,value) {
     // Clear any previous highlights
     const rows = document.querySelectorAll("tr");
     rows.forEach(row => {
         row.classList = "";
     });
-    const searchBar = document.getElementById("searchInput");
-    const input = searchBar.value;
-    console.log(input)
+    if(!value){
+        const searchBar = document.getElementById("searchInput");
+        value = searchBar.value;
+    }
     let found = false;
 
     // Loop through each row to find the match
     rows.forEach(row => {
         const cells = row.getElementsByTagName("td");
         for (let i = 0; i < cells.length; i++) {
-            if (cells[i].innerHTML == input) {
+            if (cells[col].innerHTML === value) {
                 row.classList.add("table-primary");
                 row.scrollIntoView({ behavior: "smooth", block: "center" });
                 found = true;
@@ -118,3 +121,40 @@ window.addEventListener('scroll',()=>{
     }
 })
 
+let btn = document.querySelectorAll('.action-card');
+
+btn.forEach((b,index)=>{
+    b.addEventListener('click',()=>{
+        for(let i=0;i<btn.length;i++) btn[i].classList.remove('action-card-active');
+        b.classList.add('action-card-active');
+        if(index === 1)
+            row_Filter("EMPTY")
+        else if(index === 2){
+            row_Filter("FILLED")
+        }else{
+            row_Filter();
+        }
+
+
+    })
+})
+function row_Filter(value){
+    let Tbody = document.querySelectorAll(".table tbody");
+    let node = [];
+    Tbody[0].innerHTML = "";
+
+    for(let i= 1; i < rooms.length;i++){
+        let cells = rooms[i].getElementsByTagName("td");
+        if(!value){
+            Tbody[0].innerHTML += rooms[i].innerHTML;
+        }else{
+            for(let j = 0;j<cells.length;j++){
+                if(cells[j].textContent === value){
+                    node.push(rooms[i]);
+                    Tbody[0].innerHTML += rooms[i].innerHTML;
+                }
+            }
+        }
+
+    }
+}
