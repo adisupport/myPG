@@ -138,11 +138,11 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-3 mb-3">
+                            <div class="col-6 mb-3">
                                 <label for="passportNumber" class="form-label">Passport Number</label>
                                 <input type="text" th:field="*{passportNumber}" class="form-control" id="passportNumber">
                             </div>
-                            <div class="col-3 mb-3">
+                            <div class="col-6 mb-3">
                                 <label for="aadhaarNumber" class="form-label">Aadhaar Number</label>
                                 <input type="text" th:field="*{aadhaarNumber}" class="form-control" id="aadhaarNumber">
                             </div>
@@ -161,7 +161,15 @@
                             <input th:field="*{roomNumber}" class="form-control" id="room" type="text" placeholder="101"/>
                             <i class='bx bxs-school input-group-text'></i>
                         </div>
-
+                    </div>
+                    <div class="col-4">
+                        <label class="form-label" for="checkin">
+                            Check In Date
+                        </label>
+                        <div class="input-group">
+                            <input th:field="*{checkInDate}" class="form-control" id="checkin" type="date" placeholder="101"/>
+<!--                            <i class='bx bxs-school input-group-text'></i>-->
+                        </div>
                     </div>
 
                 </div>
