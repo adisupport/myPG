@@ -15,4 +15,5 @@ public interface GuestRepo extends JpaRepository<Guest,Long> {
     public List<Guest> findByRoom(Room room);
     public List<Guest> findByCheckIN(Date checkIn);
     public List<Guest> findByCheckOut(Date checkOut);
+    public Optional<Guest> findGuestByMobile(Long mobile);
 }

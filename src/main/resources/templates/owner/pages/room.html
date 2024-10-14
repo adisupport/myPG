@@ -65,38 +65,59 @@
             <th:block th:text="${error}"></th:block>
             <i class='btn-close'></i>
         </div>
-        <div class="room-actions row">
-            <div class="room-search col-sm-7 col-lg-5">
-                <label class="input-group">
-                    <span class="input-group-text fs-6 fw-semibold">Room Number</span>
-                    <input placeholder="108" type="number" id="searchInput" class="form-control">
-                    <button class="input-group-text btn btn-dark" onclick="searchTable()">Search</button>
-                </label>
+<!--        <div class="room-actions row">-->
+<!--            <div class="room-search">-->
+<!--                <label class="input-group">-->
+<!--                    <select class="input-group-text fs-6 fw-semibold">-->
+<!--                        <option selected>Room Number</option>-->
+<!--                        <option selected>Sharing</option>-->
+<!--                        <option selected>Occupancy</option>-->
+<!--                    </select>-->
+<!--                    <input placeholder="Search" type="text" id="searchInput" class="form-control">-->
+<!--                    <button class="input-group-text btn btn-dark" onclick="searchTable()">Search</button>-->
+<!--                </label>-->
 
-            </div>
-            <div class="col-lg-2 col-4  mt-2 text-end">
-                <a href="#" class="btn btn-warning" data-bs-target="#add_room_model" data-bs-toggle="modal"> Add Room</a>
-            </div>
+<!--            </div>-->
 
-        </div>
-        <div>
+
+<!--        </div>-->
+        <div class="table-section d-flex">
             <div>
-                <button class="action-card action-card-active">
+                <button class="action-card action-card-active" onclick="row_Filter()">
                     ALL
                 </button>
-                <button class="action-card">
+                <button class="action-card" onclick="row_Filter('EMPTY')">
                     Available Room
                 </button>
-                <button class="action-card">
+                <button class="action-card" onclick=" row_Filter('FILLED')">
                     Filled
                 </button>
             </div>
+
+            <div class="d-flex text-end">
+                <div class="room-search mx-2">
+                    <label class="input-group">
+                        <span class="input-group-text">
+                            <i class="bx bx-search"></i>
+                        </span>
+                        <input placeholder="Search here" type="text" id="searchInput" class="form-control" onchange="searchTable()">
+                        <select class="input-group-text ">
+                            <option selected>Mobile</option>
+                            <option>status</option>
+                            <option>Payment Status</option>
+                        </select>
+                        <!--                    <button class="input-group-text btn btn" onclick="">Search</button>-->
+                    </label>
+
+                </div>
+                <a href="#" class="btn btn-warning" data-bs-target="#add_room_model" data-bs-toggle="modal">Add Room </a>
+            </div>
+        </div>
             <th:block th:if="${!rooms.isEmpty()}">
              <div th:replace="~{fragments/table.html::roomTable(${rooms})}"></div>
             </th:block>
             <th:block th:if="${rooms.isEmpty()}">
-                <div>No Room In Record</div>
+                <div class="d-flex vh-75 justify-content-center align-items-center  fs-2 text-success">No Room In Record</div>
             </th:block>
         </div>
     </div>
-</div>

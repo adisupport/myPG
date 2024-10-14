@@ -5,16 +5,16 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
 @Setter
 @Getter
-public class Profile{
+public class Profile extends BaseModel {
     private String firstName;
     private String lastName;
     private String email;
-    @Id
     private Long mobile;
     private String address;
     private String state;
@@ -22,10 +22,9 @@ public class Profile{
     private int zipcode;
     private String nationality;
     private String gender;
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
     private String passportNumber;
     private String aadhaarNumber;
-    @OneToOne
-    User user;
+
 
 }

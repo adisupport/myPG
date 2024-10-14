@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:if="${pageName!=null}" th:replace="~{fragments/head::head(${pageName.toUpperCase()})}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--    <div th:replace="~{fragments/sidebar::sidebar-blue(${content})}"></div>-->
+
+<div class="page">
+    <div class="sidebar-2 ">
+        <div class="sidebar-toggler">
+            <i class='bx bxs-chevron-right toggle'></i>
+        </div>
+        <div class="sidebar-2-header">
+            <img width="80%"
+                 src="https://th.bing.com/th/id/OIP.Sc-pGDkmKH6dLZgbWk-3uAHaHa?w=175&h=180&c=7&r=0&o=5&pid=1.7"
+                 alt="logo">
+        </div>
+        <div class="sidebar-2-body">
+            <a class="tab" href="/owner">
+                <i class='bx bxs-home icon'></i>
+                <span class="text tab-text">HOME</span>
+            </a>
+            <a class="tab" href="/owner/guest">
+                <i class='bx bxs-user-rectangle icon'></i>
+                <span class="text tab-text">GUESTS</span>
+            </a>
+            <a class="tab" href="/owner/room">
+                <i class='bx bx-building-house icon'></i>
+                <span class="text tab-text">ROOMS</span>
+            </a>
+            <a class="tab" href="/owner/invoice">
+                <i class='bx bx-receipt icon'></i>
+                <span class="text tab-text">INVOICES</span>
+            </a>
+            <a class="tab" href="/owner/complain">
+                <i class='bx bx-comment-edit icon'></i>
+                <span class="text tab-text">COMPLAINS</span>
+            </a>
+        </div>
+        <div class="sidebar-2-footer">
+            <a class="tab" href="/logout">
+                <i class='bx bx-log-out icon'></i>
+                <span class="text tab-text">Logout</span>
+            </a>
+            <div class="tab">
+                <div class="moon-sun">
+                    <i class='bx bx-moon icon moon'></i>
+                    <!-- <i class='bx bx-sun icon sun'></i> -->
+                </div>
+                <span class="mode-text tab-text ">Light</span>
+                <div class="toggle-switch">
+                    <span class="switch"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content p-3 overflow-hidden">
+        <a><i class="bx bx-arrow-back fs-2 text-secondary"></i></a>
+        <div class="booking page px-4">
+            <div class="page-title mx-4">
+                <div class="d-flex justify-content-between">
+                    <span class="fs-1 text-primary">Booking Form</span>
+                </div>
+            </div>
+<!--            <form action="/owner/guest" method="post" th:action="@{/owner/booking}" th:object="${bookingForm}">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-md-6 mb-3">-->
+<!--                        <label for="firstName" class="form-label">First Name</label>-->
+<!--                        <input type="text" class="form-control" th:field="*{firstName}" id="firstName" required>-->
+<!--                        <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="text-danger"></div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-6 mb-3">-->
+<!--                        <label for="lastName" class="form-label">Last Name</label>-->
+<!--                        <input type="text" class="form-control" th:field="*{lastName}" id="lastName" required>-->
+<!--                        <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="text-danger"></div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="row">-->
+<!--                    <div class="mb-3 col-sm-6">-->
+<!--                        <label for="email" class="form-label">Email</label>-->
+<!--                        <input type="email" class="form-control" th:field="*{email}" id="email" required>-->
+<!--                        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></div>-->
+<!--                    </div>-->
+<!--                    <div class="mb-3 col-sm-6">-->
+<!--                        <label for="mobile" class="form-label">Mobile</label>-->
+<!--                        <input type="tel" class="form-control" th:field="*{mobile}" pattern="\d{10}" id="mobile" required>-->
+<!--                        <div th:if="${#fields.hasErrors('mobile')}" th:errors="*{mobile}" class="text-danger"></div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="mb-3">-->
+<!--                    <label for="address" class="form-label">Address</label>-->
+<!--                    <input type="text" class="form-control" th:field="*{address}" id="address" required>-->
+<!--                    <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-danger"></div>-->
+<!--                </div>-->
+<!--                <div class="row">-->
+<!--                    <div class="col-md-3 mb-3">-->
+<!--                        <label for="state" class="form-label">State</label>-->
+<!--                        <input type="text" class="form-control" id="state" th:field="*{state}" required>-->
+<!--                        <div th:if="${#fields.hasErrors('state')}" th:errors="*{state}" class="text-danger"></div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-3 mb-3">-->
+<!--                        <label for="city" class="form-label">City</label>-->
+<!--                        <input type="text" class="form-control" id="city" th:field="*{city}" required>-->
+<!--                        <div th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="text-danger"></div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-3 mb-3">-->
+<!--                        <label for="zipcode" class="form-label">Zipcode</label>-->
+<!--                        <input type="number" class="form-control" id="zipcode" th:field="*{zipcode}">-->
+<!--                    </div>-->
+<!--                    <div class="col-md-3 mb-3">-->
+<!--                        <label for="nationality" class="form-label">Nationality</label>-->
+<!--                        <input type="text" th:field="*{nationality}" class="form-control" value="INDIA" PLACEHOLDER="INDIA" id="nationality" required>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="mb-3">-->
+<!--                    <label for="gender" class="form-label">Gender</label>-->
+<!--                    <select th:field="*{gender}" class="form-select" id="gender" required>-->
+<!--                        <option value="">Select Gender</option>-->
+<!--                        <option value="male">Male</option>-->
+<!--                        <option value="female">Female</option>-->
+<!--                        <option value="other">Other</option>-->
+<!--                    </select>-->
+<!--                    <div th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" class="text-danger"></div>-->
+<!--                </div>-->
+<!--                <div class="mb-3">-->
+<!--                    <label for="dateOfBirth" class="form-label">Date of Birth</label>-->
+<!--                    <input th:field="*{dateOfBirth}" type="date" class="form-control" id="dateOfBirth" required>-->
+<!--                    <div th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}" class="text-danger"></div>-->
+<!--                </div>-->
+<!--                <div class="mb-3">-->
+<!--                    <label for="passportNumber" class="form-label">Passport Number</label>-->
+<!--                    <input type="text" th:field="*{passportNumber}" class="form-control" id="passportNumber">-->
+<!--                </div>-->
+<!--                <div class="mb-3">-->
+<!--                    <label for="aadhaarNumber" class="form-label">Aadhaar Number</label>-->
+<!--                    <input type="text" th:field="*{aadhaarNumber}" class="form-control" id="aadhaarNumber">-->
+<!--                </div>-->
+<!--                <button type="submit" class="btn btn-primary">Submit</button>-->
+<!--            </form>-->
+        </div>
+    </div>
+</div>
+
+
+<th:block th:replace="~{fragments/footer::footer}"></th:block>
+</body>
+</html>

@@ -1,3 +1,130 @@
 <div class="main" th:fragment="page">
-    <h1>HOME PAGE </h1>
+    <div class="page-title">
+         <h5 class="text-secondary">Home</h5>
+        <div class="d-flex justify-content-between">
+            <span class="fs-1 text-primary">PGEase</span>
+            <div class="mr-2">
+                <a href="/owner/booking" class="btn btn-success d-flex align-item-center">
+                    <i class='bx bx-plus fs-4 px-2'></i>
+                    Create New Booking
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="data-card-ls">
+        <div class="card">
+            <div class="card-header">
+                RESERVATION DETAILS
+            </div>
+            <div class="card-body">
+                <div class="data-card-holder text-primary">
+                    <div class="data-card">
+                        <div class="data-card-icon">
+                            <i class='bx bx-book-open fs-2 mx-2'></i>
+                        </div>
+                        <div class="data-card-title mx-2">
+                            <h6>New Booking</h6>
+                            <h3>173</h3>
+                        </div>
+                    </div>
+                    <div class="data-card">
+                        <div class="data-card-icon">
+                            <i class='bx bx-bed fs-2 mx-2' ></i>
+                        </div>
+                        <div class="data-card-title mx-2">
+                            <h6>Available Room</h6>
+                            <h3>103</h3>
+                        </div>
+                    </div>
+                    <div class="data-card">
+                        <div class="data-card-icon">
+                            <i class='bx bxs-log-in fs-2 mx-2 '></i>
+                        </div>
+                        <div class="data-card-title mx-2">
+                            <h6>Stay Now</h6>
+                            <h3>71</h3>
+                        </div>
+                    </div>
+                    <div class="data-card">
+                        <div class="data-card-icon">
+                            <i class='bx bxs-log-out fs-2 mx-2'></i>
+                        </div>
+                        <div class="data-card-title mx-2">
+                            <h6>Check Out</h6>
+                            <h3>29</h3>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${error != null}"  class="error-message text-bg-secondary text-warning my-3">
+        <th:block th:error="${error}">HAHAHA SOMETHING BREAK</th:block>
+        <i class='btn-close'></i>
+    </div>
+    <div class="analytics">
+
+    </div>
+    <div class="booking-table my-5">
+        <h5 class="text-secondary">Booking history</h5>
+        <div class="table-search">
+            </div>
+            <div class="table-section d-flex">
+                <div class="col-5">
+                    <button class="action-card action-card-active" onclick="row_Filter()">
+                        ALL
+                    </button>
+                    <button class="action-card" onclick="row_Filter(6,'Staying')">
+                        STAY IN
+                    </button>
+                    <button class="action-card" onclick="row_Filter(1,'10-10-2012')">
+                        THIS MONTH
+                    </button>
+                </div>
+<!--                <div class="col-lg-3 text-end">-->
+<!--                    <a href="#" class="btn btn-warning" data-bs-target="#add_guest_model" data-bs-toggle="modal"> Add Guest</a>-->
+<!--                </div>-->
+                <div class="search-box">
+                    <label class="input-group">
+                        <span class="input-group-text">
+                            <i class="bx bx-search"></i>
+                        </span>
+                        <input placeholder="Search here" type="text" id="searchInput" class="form-control" onchange="searchTable()">
+                        <select class="input-group-text">
+                            <option value="3" selected>Mobile</option>
+                            <option value="5">status</option>
+                            <option value="1">Month</option>
+                        </select>
+                        <!--                    <button class="input-group-text btn btn" onclick="">Search</button>-->
+                    </label>
+            </div>
+        </div>
+        <div class="table-action">
+
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#Booking ID</th>
+                    <th>Date</th>
+                    <th>First Name</th>
+                    <th>Contact</th>
+                    <th>paid</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
+               <td><a href="/booking/123">123</a></td>
+               <td>10-10-2012</td>
+               <td>Sonu</td>
+               <td><a href="owner/guest/91081251535">91081251535</a></td>
+               <td>₹ 7000</td>
+               <td>Staying</td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
 </div>

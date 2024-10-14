@@ -127,13 +127,13 @@ btn.forEach((b,index)=>{
     b.addEventListener('click',()=>{
         for(let i=0;i<btn.length;i++) btn[i].classList.remove('action-card-active');
         b.classList.add('action-card-active');
-        if(index === 1)
-            row_Filter("EMPTY")
-        else if(index === 2){
-            row_Filter("FILLED")
-        }else{
-            row_Filter();
-        }
+        // if(index === 1)
+        //     row_Filter("EMPTY")
+        // else if(index === 2){
+        //     row_Filter("FILLED")
+        // }else{
+        //     row_Filter();
+        // }
 
 
     })
