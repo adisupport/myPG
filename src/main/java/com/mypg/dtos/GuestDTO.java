@@ -32,5 +32,6 @@ public class GuestDTO {
     private Integer roomNumber;
     private String paymentStatus;
     private String bookingStatus;
+    private String occupation;
 
 }
