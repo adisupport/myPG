@@ -255,7 +255,7 @@
 }
 .details-section .row{
     display: flex;
-    justify-content: space-evenly;
+    /*justify-content: space-evenly;*/
     margin: 16px 0;
 }
 .details-section .col{
@@ -265,4 +265,7 @@
 .details-section #show{
 
 }
-
+.input-center input
+{
+    text-align: center;
+}

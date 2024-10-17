@@ -65,45 +65,72 @@
         </div>
         <div class="details-section">
             <div class="card mb-3">
-                <div class="card-header text-primary">
+                <div class="card-header text-white bg-black">
                     Guest Details
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <label class="input-group-text col-5">
+                        <label class="input-group-text col">
                             FULL NAME
                             <input class=" form-control" type="text" value="Ajay Kumar" readonly>
                         </label>
-                        <label class="input-group-text col-5">
+                        <label class="input-group-text col">
                             Mobile Number
                             <input class=" form-control" type="text" value="5678914231" readonly>
                         </label>
                     </div>
+                    <div class="row text-center input-center">
+                        <label class="input-group-text col">
+                            Booking<br>Date
+                            <input class=" form-control" type="text" value="10-02-1999" readonly>
+                        </label>
+                        <label class="input-group-text col ">
+                            Guest<br> Status
+                            <input class=" form-control" type="text" value="Active" readonly>
+                        </label>
+                        <label class="input-group-text col text-bg-success">
+                            Rent Status
+                            <input class=" form-control" type="text" value="Paid" readonly>
+                        </label>
+                        <label class="input-group-text col text-bg-secondary">
+                            Room Validity
+                            <input class=" form-control " type="text" value="24" readonly>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label class="input-group-text col input-center">
+                            Security Money Paid
+                            <input class=" form-control " type="text" value="2000" readonly>
+                        </label>
+                    </div>
+
                 </div>
             </div>
             <div class="card mb-3 ">
-                <div class="card-header">
+                <div class="card-header ">
                     Address
                 </div>
-                <div class="card-body">
+                <div class="card-body input-center">
                     <label class="input-group-text col-12">
                         Street
-                        <input class=" form-control" type="text" value="SNR PG,1st Cross Road,1st Main Road,Ns palya road, BTM Stage 2,BTM Layout" readonly>
+                        <input class=" form-control" type="text"
+                               value="SNR PG,1st Cross Road,1st Main Road,Ns palya road, BTM Stage 2,BTM Layout"
+                               readonly>
                     </label>
-                    <div class="row ">
-                        <label class="input-group-text col-3">
+                    <div class="row gx-0 ">
+                        <label class="input-group-text col">
                             State
                             <input class=" form-control" type="text" value="Karnataka" readonly>
                         </label>
-                        <label class="input-group-text col-3">
+                        <label class="input-group-text col">
                             City
                             <input class=" form-control" type="text" value="Bangalore" readonly>
                         </label>
-                        <label class="input-group-text col-3">
+                        <label class="input-group-text col">
                             Country
                             <input class=" form-control" type="text" value="India" readonly>
                         </label>
-                        <label class="input-group-text col-3">
+                        <label class="input-group-text col">
                             Pincode
                             <input class=" form-control" type="text" value="800026" readonly>
                         </label>
@@ -114,11 +141,53 @@
 
         <div class="guest-invoice">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header text-white bg-black">
                     Rents List
                 </div>
                 <div class="card-body">
-
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Rent For</th>
+                            <th>Rent</th>
+                            <th>Payment Date</th>
+                            <th>Amount Paid</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                October
+                            </td>
+                            <td>
+                                6000
+                            </td>
+                            <td>
+                                9-10-2024
+                            </td>
+                            <td>
+                                6000
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>
+                                September
+                            </td>
+                            <td>
+                                6000
+                            </td>
+                            <td>
+                                9-9-2024
+                            </td>
+                            <td>
+                                6000
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
