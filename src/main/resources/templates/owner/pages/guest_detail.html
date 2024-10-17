@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:if="${pageName!=null}" th:replace="~{fragments/head::head(${pageName.toUpperCase()})}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="page">
+    <div class="sidebar-2 ">
+        <div class="sidebar-toggler">
+            <i class='bx bxs-chevron-right toggle'></i>
+        </div>
+        <div class="sidebar-2-header">
+            <img width="80%"
+                 src="https://th.bing.com/th/id/OIP.Sc-pGDkmKH6dLZgbWk-3uAHaHa?w=175&h=180&c=7&r=0&o=5&pid=1.7"
+                 alt="logo">
+        </div>
+        <div class="sidebar-2-body">
+            <a class="tab" href="/owner">
+                <i class='bx bxs-home icon'></i>
+                <span class="text tab-text">HOME</span>
+            </a>
+            <a class="tab" href="/owner/guest">
+                <i class='bx bxs-user-rectangle icon'></i>
+                <span class="text tab-text">GUESTS</span>
+            </a>
+            <a class="tab" href="/owner/room">
+                <i class='bx bx-building-house icon'></i>
+                <span class="text tab-text">ROOMS</span>
+            </a>
+            <a class="tab" href="/owner/invoice">
+                <i class='bx bx-receipt icon'></i>
+                <span class="text tab-text">INVOICES</span>
+            </a>
+            <a class="tab" href="/owner/complain">
+                <i class='bx bx-comment-edit icon'></i>
+                <span class="text tab-text">COMPLAINS</span>
+            </a>
+        </div>
+        <div class="sidebar-2-footer">
+            <a class="tab" href="/logout">
+                <i class='bx bx-log-out icon'></i>
+                <span class="text tab-text">Logout</span>
+            </a>
+            <div class="tab">
+                <div class="moon-sun">
+                    <i class='bx bx-moon icon moon'></i>
+                    <!-- <i class='bx bx-sun icon sun'></i> -->
+                </div>
+                <span class="mode-text tab-text ">Light</span>
+                <div class="toggle-switch">
+                    <span class="switch"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content p-3 overflow-scroll">
+        <a href="/owner/guest"><i class="bx bx-arrow-back fs-2 text-secondary"></i></a>
+        <div class="page-title">
+            <div class="d-flex justify-content-between mx-4 mb-3">
+                <span class="fs-1 text-primary">Ajay Kumar</span>
+                <a href="/owner/guest/edit"><i class="fs-2 bx bx-edit"></i></a>
+            </div>
+            <hr/>
+        </div>
+        <div class="details-section">
+            <div class="card mb-3">
+                <div class="card-header text-primary">
+                    Guest Details
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <label class="input-group-text col-5">
+                            FULL NAME
+                            <input class=" form-control" type="text" value="Ajay Kumar" readonly>
+                        </label>
+                        <label class="input-group-text col-5">
+                            Mobile Number
+                            <input class=" form-control" type="text" value="5678914231" readonly>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-3 ">
+                <div class="card-header">
+                    Address
+                </div>
+                <div class="card-body">
+                    <label class="input-group-text col-12">
+                        Street
+                        <input class=" form-control" type="text" value="SNR PG,1st Cross Road,1st Main Road,Ns palya road, BTM Stage 2,BTM Layout" readonly>
+                    </label>
+                    <div class="row ">
+                        <label class="input-group-text col-3">
+                            State
+                            <input class=" form-control" type="text" value="Karnataka" readonly>
+                        </label>
+                        <label class="input-group-text col-3">
+                            City
+                            <input class=" form-control" type="text" value="Bangalore" readonly>
+                        </label>
+                        <label class="input-group-text col-3">
+                            Country
+                            <input class=" form-control" type="text" value="India" readonly>
+                        </label>
+                        <label class="input-group-text col-3">
+                            Pincode
+                            <input class=" form-control" type="text" value="800026" readonly>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="guest-invoice">
+            <div class="card">
+                <div class="card-header">
+                    Rents List
+                </div>
+                <div class="card-body">
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<th:block th:replace="~{fragments/footer::footer}"></th:block>
+</body>
+</html>

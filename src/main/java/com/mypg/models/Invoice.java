@@ -4,15 +4,16 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @Setter
 public class Invoice extends BaseModel{
-    @ManyToOne
+    @ManyToOne(optional=false)
     private Guest guest;
     private Double amount;
-    private Month forMonth;
-    private Integer year;
-    private Double advance;
+    private Double paidAmount;
+    private LocalDate paymentDate;
     private Double maintenanceCharge;
 }

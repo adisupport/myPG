@@ -44,13 +44,13 @@
                 <thead>
                 <tr class="text-center">
                     <th>ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
                     <th>Mobile</th>
-                    <th>Check-In</th>
-                    <th>Check-Out</th>
+                    <th>Full Name</th>
+<!--                    <th>Last Name</th>-->
                     <th>Room Number</th>
                     <th>Status</th>
+                    <th>Check-In</th>
+<!--                    <th>Check-Out</th>-->
                     <th scope="col">Action</th>
                 </tr>
                 </thead>
@@ -58,14 +58,16 @@
                 <tr class="room_data text-bg-success text-center" th:each="guest: ${guests}">
 
                     <td th:text="${guest.id}"></td>
-                    <td th:text="${guest.profile.firstName}"></td>
-                    <td th:text="${guest.profile.lastName}"></td>
-                    <td th:text="${guest.profile.mobile}"></td>
-                    <td th:text="${guest.checkIN}"></td>
-                    <td th:text="${guest.checkOut}"></td>
-                    <td th:if="${guest.room != null}" th:text="${guests.room.number}"></td>
+                    <td th:text="${guest.mobile}"></td>
+                    <td th:text="${guest.profile.firstName +' ' +guest.profile.lastName}"></td>
+<!--                    <td th:text="${guest.profile.lastName}"></td>-->
+
+
+<!--                    <td th:text="${guest.checkOut}"></td>-->
+                    <td th:if="${guest.room != null}" th:text="${guest.room.number}"></td>
                     <td th:if="${guest.room == null}">N/A</td>
                     <td th:text="${guest.status}"></td>
+                    <td th:text="${guest.checkIN}"></td>
                     <td><div>
                         <a th:href="${'/owner/guest/'+guest.mobile}" class="btn btn-primary">
                             <i class='bx bxs-book-open'></i>

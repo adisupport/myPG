@@ -1,21 +1,23 @@
-const body=document.querySelector("body");
-sidebar=body.querySelector('.sidebar');
-toggle=body.querySelector(".toggle");
-modeSwitch=body.querySelector(".toggle-switch");
-modeText=body.querySelector(".mode-text")
-
-
-toggle.addEventListener("click" ,() =>{
-    sidebar.classList.toggle('close');
+let details = document.getElementsByClassName("details-section");
+let span = document.createElement('h3');
+span.textContent = 'show more...'
+span.setAttribute('id',"show");
+span.classList.add('fs-5','text-primary','text-end');
+collapseDiv();
+span.addEventListener('click',()=>{
+    collapseDiv();
+    if(span.textContent === "show more...")
+        span.textContent="show less...";
+    else
+        span.textContent = "show more...";
 })
-modeSwitch.addEventListener("click",() =>{
-body.classList.toggle("dark");
+for (let i = 0; i < details.length; i++) {
+    details[i].appendChild(span)
 }
-)
-document.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent default behavior
-        const href = link.getAttribute('href');
-        window.location.href = href; // Redirect to the link's href
-    });
-});
+function collapseDiv(){
+    let divs = document.querySelectorAll(".details-section>div");
+    for (let i = 1; i < divs.length; i++) {
+        divs[i].classList.toggle('collapse');
+    }
+}
+console.log("HTML")

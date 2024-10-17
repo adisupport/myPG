@@ -1,5 +1,6 @@
 package com.mypg.services;
 
+import com.mypg.exceptions.NoSuchRoom;
 import com.mypg.exceptions.RoomAlreadyExist;
 import com.mypg.models.Guest;
 import com.mypg.models.Room;
@@ -17,6 +18,6 @@ public interface RoomService {
     void changeRoomFloor(Integer roomNumber,Integer newFloor);
     List<Room> getRooms();
     void addImg(Integer roomNumber, String imgURL);
-    Room getRoom(Integer roomID);
+    Room getRoom(Integer roomID) throws NoSuchRoom;
     void allocateGuest(Integer roomNumber,Guest guest);
 }

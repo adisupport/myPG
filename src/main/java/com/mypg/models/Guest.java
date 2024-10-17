@@ -18,12 +18,15 @@ import java.util.List;
 public class Guest  extends BaseModel{
     @Column(unique=true,nullable=false)
     Long mobile;
-    @Cascade(CascadeType.PERSIST)
+    @Cascade(CascadeType.ALL)
     @OneToOne
     Profile profile;
     private LocalDate checkIN;
     private LocalDate checkOut;
     String status;
+
+    Double securityMoney;
+    Integer roomValidity;
 
     @ManyToOne
     Room room;

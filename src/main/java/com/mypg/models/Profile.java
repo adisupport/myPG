@@ -25,6 +25,5 @@ public class Profile extends BaseModel {
     private LocalDate dateOfBirth;
     private String passportNumber;
     private String aadhaarNumber;
-
-
+    private String occupation;
 }

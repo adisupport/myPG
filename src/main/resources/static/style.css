@@ -233,5 +233,36 @@
 }
 .page{
     /*background-color: darkkhaki;*/
+}
+.details-section{
+    /*display: grid;*/
+    /*grid-template-columns: repeat(2,1fr);*/
+    /*row-gap: 10px;*/
+    /*grid-column-gap: 10px;*/
+    font-size: 1.2rem;
+    transition: .67s;
+    height: max-content;
+    /*border: 1px solid grey;*/
+    /*border-radius: 8px;*/
+    border-bottom:1px solid blue;
+    margin: 16px 0;
+    padding: 1rem;
+}
+.details-section input{
+    margin-left: 12px;
+    padding: 15px 0 15px 10px;
+    /*text-align: center;*/
+}
+.details-section .row{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 16px 0;
+}
+.details-section .col{
+    margin: 0 16px;
+}
+
+.details-section #show{
 
 }
+

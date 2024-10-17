@@ -1,9 +1,11 @@
 package com.mypg.controllers.owner;
 
+import com.mypg.exceptions.NoSuchRoom;
 import com.mypg.exceptions.RoomAlreadyExist;
 import com.mypg.models.Room;
 import com.mypg.models.RoomStatus;
 import com.mypg.services.RoomService;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -18,7 +20,6 @@ import java.util.NoSuchElementException;
 @RequestMapping("/owner/room")
 public class RoomController {
     RoomService roomService;
-    String errorMessage="";
     RoomController(RoomService roomService){
         this.roomService = roomService;
     }
@@ -26,8 +27,11 @@ public class RoomController {
     private static final Logger log = LoggerFactory.getLogger(RoomController.class);
 
     @GetMapping()
-    public String room(Model model) {
+    public String room(Model model,HttpSession session) {
         log.debug("ROOM CONTROLLER CALLED");
+        String errorMessage = "";
+        if(session.getAttribute("errorMessage")!=null)
+             errorMessage= session.getAttribute("errorMessage").toString();
         List<Room> rooms = roomService.getRooms();
 
         model.addAttribute("pageTitle","ROOM PAGE");
@@ -35,12 +39,12 @@ public class RoomController {
         model.addAttribute("room",new Room());
         model.addAttribute("pageName","room");
         model.addAttribute("status", Arrays.stream(RoomStatus.values()).toList());
-        model.addAttribute("errormessage",errorMessage);
+        model.addAttribute("error",errorMessage);
         return "owner/index";
     }
 
     @PostMapping()
-    public String handleForm(Room room,Model model){
+    public String handleForm(Room room,Model model,HttpSession session){
         Integer number = room.getNumber();
         Integer floor = room.getFloor();
         Integer noOfBeds = room.getNoOfBeds();
@@ -51,15 +55,14 @@ public class RoomController {
             roomService.addRoom(number,floor,noOfBeds,type,status,noOfEmptyBeds);
         }catch (RoomAlreadyExist e){
             // Handle Room Not Exist Exception
-            errorMessage = "Room with number" + number+" is already exist.";
-
+            session.setAttribute("errorMessage","Room with number" + number+" is already exist.");
         }catch (Exception e){
-            errorMessage = e.getMessage();
+            session.setAttribute("errorMessage",e.getMessage());
         }
         return "redirect:/owner/room";
     }
     @GetMapping("/{id}")
-    public String getRoomDetails(@PathVariable Integer id, Model model){
+    public String getRoomDetails(@PathVariable Integer id, Model model) throws NoSuchRoom {
         Room room = roomService.getRoom(id);
         model.addAttribute("room",room);
         return "/owner/pages/view_room";
@@ -68,5 +71,11 @@ public class RoomController {
     @ExceptionHandler(NoSuchElementException.class)
     public String noSuchRoom(NoSuchElementException exception,Model model){
         return "/owner/exception";
+    }
+
+    @ExceptionHandler(NoSuchRoom.class)
+    public String noSuchRoom(NoSuchRoom exception, Model model, HttpSession session){
+        session.setAttribute("errorMessage","error: Room,You are looking for not exists");
+        return "/owner/room";
     }
 }

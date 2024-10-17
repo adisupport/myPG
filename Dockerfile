@@ -4,6 +4,8 @@ WORKDIR /app
 COPY . .
 # RUN ./mvnw clean install 
 #This command skips the Build TESTCASE which we used to avoid DB Conncection check.
+# chmod +x mvnw
+RUN chmod +x mvnw
 RUN ./mvnw clean install -DskipTests
 # -DskipTests
 
