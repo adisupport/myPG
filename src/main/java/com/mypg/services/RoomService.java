@@ -20,4 +20,5 @@ public interface RoomService {
     void addImg(Integer roomNumber, String imgURL);
     Room getRoom(Integer roomID) throws NoSuchRoom;
     void allocateGuest(Integer roomNumber,Guest guest);
+    List<Room> getAllAvailableRooms();
 }

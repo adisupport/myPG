@@ -11,9 +11,9 @@
             <i class='bx bxs-chevron-right toggle'></i>
         </div>
         <div class="sidebar-2-header">
-            <img width="80%"
+            <img alt="logo"
                  src="https://th.bing.com/th/id/OIP.Sc-pGDkmKH6dLZgbWk-3uAHaHa?w=175&h=180&c=7&r=0&o=5&pid=1.7"
-                 alt="logo">
+                 width="80%">
         </div>
         <div class="sidebar-2-body">
             <a class="tab" href="/owner">
@@ -65,74 +65,74 @@
         </div>
         <div class="details-section">
             <div class="card mb-3">
-                <div class="card-header text-white bg-black">
+                <div class="card-header text-bg-primary">
                     Guest Details
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <label class="input-group-text col">
+                        <label class="input-group-text col-md-6">
                             FULL NAME
-                            <input class=" form-control" type="text" value="Ajay Kumar" readonly>
+                            <input class=" form-control" readonly type="text" value="Ajay Kumar">
                         </label>
-                        <label class="input-group-text col">
+                        <label class="input-group-text col-md-6">
                             Mobile Number
-                            <input class=" form-control" type="text" value="5678914231" readonly>
+                            <input class=" form-control" readonly type="text" value="5678914231">
                         </label>
                     </div>
                     <div class="row text-center input-center">
-                        <label class="input-group-text col">
-                            Booking<br>Date
-                            <input class=" form-control" type="text" value="10-02-1999" readonly>
+                        <label class="input-group-text col-md-3">
+                            BookingDate
+                            <input class=" form-control" readonly type="text" value="10-02-1999">
                         </label>
-                        <label class="input-group-text col ">
-                            Guest<br> Status
-                            <input class=" form-control" type="text" value="Active" readonly>
+                        <label class="input-group-text col-md-3">
+                            Guest Status
+                            <input class=" form-control" readonly type="text" value="Active">
                         </label>
-                        <label class="input-group-text col text-bg-success">
+                        <label class="input-group-text col-md-3 text-bg-success">
                             Rent Status
-                            <input class=" form-control" type="text" value="Paid" readonly>
+                            <input class=" form-control" readonly type="text" value="Paid">
                         </label>
-                        <label class="input-group-text col text-bg-secondary">
+                        <label class="input-group-text col-md-3 text-bg-secondary">
                             Room Validity
-                            <input class=" form-control " type="text" value="24" readonly>
+                            <input class=" form-control " readonly type="text" value="24">
                         </label>
                     </div>
                     <div class="row">
                         <label class="input-group-text col input-center">
                             Security Money Paid
-                            <input class=" form-control " type="text" value="2000" readonly>
+                            <input class=" form-control " readonly type="text" value="2000">
                         </label>
                     </div>
 
                 </div>
             </div>
             <div class="card mb-3 ">
-                <div class="card-header ">
+                <div class="card-header text-bg-primary">
                     Address
                 </div>
                 <div class="card-body input-center">
                     <label class="input-group-text col-12">
                         Street
-                        <input class=" form-control" type="text"
-                               value="SNR PG,1st Cross Road,1st Main Road,Ns palya road, BTM Stage 2,BTM Layout"
-                               readonly>
+                        <input class=" form-control" readonly
+                               type="text"
+                               value="SNR PG,1st Cross Road,1st Main Road,Ns palya road, BTM Stage 2,BTM Layout">
                     </label>
                     <div class="row gx-0 ">
-                        <label class="input-group-text col">
+                        <label class="input-group-text col-md-3">
                             State
-                            <input class=" form-control" type="text" value="Karnataka" readonly>
+                            <input class=" form-control" readonly type="text" value="Karnataka">
                         </label>
-                        <label class="input-group-text col">
+                        <label class="input-group-text col-md-3">
                             City
-                            <input class=" form-control" type="text" value="Bangalore" readonly>
+                            <input class=" form-control" readonly type="text" value="Bangalore">
                         </label>
-                        <label class="input-group-text col">
+                        <label class="input-group-text col-md-3">
                             Country
-                            <input class=" form-control" type="text" value="India" readonly>
+                            <input class=" form-control" readonly type="text" value="India">
                         </label>
-                        <label class="input-group-text col">
+                        <label class="input-group-text col-md-3">
                             Pincode
-                            <input class=" form-control" type="text" value="800026" readonly>
+                            <input class=" form-control" readonly type="text" value="800026">
                         </label>
                     </div>
                 </div>
@@ -141,7 +141,7 @@
 
         <div class="guest-invoice">
             <div class="card">
-                <div class="card-header text-white bg-black">
+                <div class="card-header text-bg-primary">
                     Rents List
                 </div>
                 <div class="card-body">
@@ -191,8 +191,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>
 <th:block th:replace="~{fragments/footer::footer}"></th:block>

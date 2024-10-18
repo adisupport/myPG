@@ -17,6 +17,7 @@ public class Booking extends BaseModel {
     Guest guest;
     @ManyToOne
     Room room;
+    LocalDate bookingDate;
     LocalDate checkIn;
     LocalDate checkOut;
     Double securityMoney;

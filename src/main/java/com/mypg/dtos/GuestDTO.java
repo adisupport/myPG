@@ -24,6 +24,7 @@ private String firstName;
     private Integer zipcode;
     private String nationality;
     private String gender;
+    private Integer age;
     private LocalDate dateOfBirth;
     private String passportNumber;
     private String aadhaarNumber;

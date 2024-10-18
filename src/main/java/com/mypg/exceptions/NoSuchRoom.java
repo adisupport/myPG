@@ -7,4 +7,7 @@ public class NoSuchRoom extends Exception{
     public NoSuchRoom(String msg){
         super(msg);
     }
+    public NoSuchRoom(Integer roomNumber){
+        super("Room Number with this "+roomNumber+" does not exist");
+    }
 }

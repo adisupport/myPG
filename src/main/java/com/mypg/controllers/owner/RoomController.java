@@ -1,5 +1,6 @@
 package com.mypg.controllers.owner;
 
+import com.mypg.dtos.RoomDTO;
 import com.mypg.exceptions.NoSuchRoom;
 import com.mypg.exceptions.RoomAlreadyExist;
 import com.mypg.models.Room;
@@ -30,8 +31,11 @@ public class RoomController {
     public String room(Model model,HttpSession session) {
         log.debug("ROOM CONTROLLER CALLED");
         String errorMessage = "";
-        if(session.getAttribute("errorMessage")!=null)
-             errorMessage= session.getAttribute("errorMessage").toString();
+        if(session.getAttribute("errorMessage")!=null){
+            errorMessage= session.getAttribute("errorMessage").toString();
+            session.setAttribute("errorMessage", null);
+        }
+
         List<Room> rooms = roomService.getRooms();
 
         model.addAttribute("pageTitle","ROOM PAGE");
@@ -52,7 +56,7 @@ public class RoomController {
         RoomStatus status = room.getStatus();
         Integer noOfEmptyBeds = room.getNoOfBedEmpty();
         try {
-            roomService.addRoom(number,floor,noOfBeds,type,status,noOfEmptyBeds);
+            roomService.addRoom(number,floor,noOfBeds,noOfBeds+" Sharing",status,noOfBeds);
         }catch (RoomAlreadyExist e){
             // Handle Room Not Exist Exception
             session.setAttribute("errorMessage","Room with number" + number+" is already exist.");
@@ -65,6 +69,8 @@ public class RoomController {
     public String getRoomDetails(@PathVariable Integer id, Model model) throws NoSuchRoom {
         Room room = roomService.getRoom(id);
         model.addAttribute("room",room);
+        model.addAttribute("pageName","room");
+        model.addAttribute("updateRoom",new RoomDTO());
         return "/owner/pages/view_room";
     }
 
@@ -77,5 +83,10 @@ public class RoomController {
     public String noSuchRoom(NoSuchRoom exception, Model model, HttpSession session){
         session.setAttribute("errorMessage","error: Room,You are looking for not exists");
         return "/owner/room";
+    }
+    @PostMapping("/edit")
+    @ResponseBody
+    public RoomDTO updateRoomRequest(RoomDTO room){
+        return room;
     }
 }

@@ -3,34 +3,34 @@ package com.mypg.services;
 
 import com.mypg.dtos.GuestDTO;
 import com.mypg.exceptions.NoSuchRoom;
-import com.mypg.models.Guest;
-import com.mypg.models.Invoice;
-import com.mypg.models.Profile;
-import com.mypg.models.Room;
+import com.mypg.exceptions.RoomFilledException;
+import com.mypg.models.*;
 import com.mypg.repo.GuestRepo;
 import com.mypg.repo.ProfileRepo;
 import com.mypg.repo.RoomRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.swing.text.html.Option;
+import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class MyGuestServices implements GuestService {
     private static final Logger log = LoggerFactory.getLogger(MyGuestServices.class);
     private final RoomService roomService;
+    private final RoomRepo roomRepo;
     GuestRepo guestRepo;
     ProfileRepo profileRepo;
 
-    MyGuestServices(GuestRepo guestRepo, ProfileRepo profileRepo, RoomService roomService) {
+    MyGuestServices(GuestRepo guestRepo, ProfileRepo profileRepo, RoomService roomService, RoomRepo roomRepo) {
         this.profileRepo = profileRepo;
         this.guestRepo = guestRepo;
         this.roomService = roomService;
+        this.roomRepo = roomRepo;
     }
 
 
@@ -60,30 +60,39 @@ public class MyGuestServices implements GuestService {
     }
 
     @Override
-    public Guest saveGuestWithRoom(GuestDTO dto,Integer roomNumber) throws NoSuchRoom {
+    public Guest saveGuestWithRoom(GuestDTO dto,Integer roomNumber) throws NoSuchRoom,RoomFilledException {
+
         Room room = roomService.getRoom(roomNumber);
-        Guest guest = convertDtoToGuest(dto);
-        guest.setRoom(room);
-        guest.setCheckIN(LocalDate.now());
-        guest.setSecurityMoney(dto.getSecurityMoney());
-        return guestRepo.save(guest);
+        int emptyBeds = room.getNoOfBeds() - room.getGuestList().size();
+        if(emptyBeds > 0){
+            room.setNoOfBedEmpty(emptyBeds-1);
+            Guest guest = convertDtoToGuest(dto);
+            guest.setRoom(room);
+            guest.setCheckIN(LocalDate.now());
+            guest.setSecurityMoney(dto.getSecurityMoney());
+            return guestRepo.save(guest);
+        }
+        throw new RoomFilledException(roomNumber);
+
     }
 
     @Override
-    public boolean updateGuest(GuestDTO dto) {
-        return false;
+    public List<Guest> findGuestByRoom(Integer roomNumber) throws NoSuchRoom  {
+        Optional<Room> room = roomRepo.findByNumber(roomNumber);
+        if(room.isPresent()){
+            return room.get().getGuestList();
+        }
+        throw new NoSuchRoom(roomNumber);
     }
 
     @Override
     public boolean deleteGuest(Long mobile) {
+        Optional<Guest> optional = guestRepo.findGuestByMobile(mobile);
+        if(optional.isPresent()){
+            guestRepo.delete(optional.get());
+            return true;
+        }
         return false;
-    }
-
-
-    @Override
-    public List<Invoice> getInvoices() {
-        return List.of();
-
     }
 
     @Override
@@ -91,22 +100,50 @@ public class MyGuestServices implements GuestService {
         Optional<Guest> guestOptional= this.findGuestByMobile(mobile);
         if(guestOptional.isPresent()){
             Guest guest = guestOptional.get();
-            guest.setRoomValidity(days);
+            guest.setRoomValidity(LocalDate.now().plusDays(days));
             guestRepo.save(guest);
         }
         throw  new NoSuchElementException("Guest with "+mobile+", these mobile number not exist");
     }
-
-    private void updateEntityFromDto(Guest guest, GuestDTO dto) {
-        guest.setCheckIN(dto.getCheckInDate());
-//        guest.setStatus(dto.getBookingStatus());
-        // Update other fields as necessary
+    public List<Guest> getAllStayingGuest(){
+        List<Guest> allGuests =  guestRepo.findAll();
+        List<Guest> staying = new ArrayList<>();
+        for(Guest guest:allGuests){
+            if(guest.getStatus() == GuestStatus.STAYING){
+                staying.add(guest);
+            }
+        }
+        return staying;
     }
+    public List<Guest> listOfGuestCheckOut(){
+        List<Guest> allGuests =  guestRepo.findAll();
+        List<Guest> checkout = new ArrayList<>();
+        for(Guest guest:allGuests){
+            if(guest.getStatus() == GuestStatus.CHECKOUT
+                    && guest.getCheckOut().getMonth() == LocalDate.now().getMonth()){
+                checkout.add(guest);
+            }
+        }
+        return checkout;
+    }
+
+    @Override
+    public void checkout(Long mobile) throws NoSuchElementException{
+        Optional<Guest> optional = guestRepo.findGuestByMobile(mobile);
+        if(optional.isPresent()){
+            Guest guest = optional.get();
+            guest.setRoom(null);
+            guest.setStatus(GuestStatus.CHECKOUT);
+            guestRepo.save(guest);
+        }
+        throw new NoSuchElementException("Guest with these "+ mobile +" mobile number not exist");
+    }
+
     private Guest convertDtoToGuest(GuestDTO dto) {
         Guest guest = new Guest();
         guest.setMobile(dto.getMobile());
         guest.setCheckIN(dto.getCheckInDate());
-        guest.setStatus("Booked");
+        guest.setStatus(GuestStatus.STAYING);
         guest.setProfile(convertDtoToProfile(dto));
         return guest;
     }
@@ -119,6 +156,7 @@ public class MyGuestServices implements GuestService {
         profile.setAddress(dto.getAddress());
         profile.setDateOfBirth(dto.getDateOfBirth());
         profile.setGender(dto.getGender());
+        profile.setAge(dto.getAge());
         profile.setCity(dto.getCity());
         profile.setState(dto.getState());
         profile.setNationality(dto.getNationality());
@@ -127,6 +165,5 @@ public class MyGuestServices implements GuestService {
         profile.setOccupation(dto.getOccupation());
         return profile;
     }
-
 }
 

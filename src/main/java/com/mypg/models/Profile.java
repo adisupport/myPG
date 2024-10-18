@@ -17,6 +17,7 @@ public class Profile extends BaseModel {
     private String email;
     private Long mobile;
     private String address;
+    private Integer age;
     private String state;
     private String city;
     private int zipcode;

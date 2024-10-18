@@ -24,34 +24,43 @@
                         </div>
                         <div class="data-card-title mx-2">
                             <h6>New Booking</h6>
-                            <h3>173</h3>
+                            <h3 th:text="${booking.bookings.size()}">173</h3>
                         </div>
                     </div>
+                    <a class="text-decoration-none" th:href="@{/owner/room?search=available}">
                     <div class="data-card">
                         <div class="data-card-icon">
                             <i class='bx bx-bed fs-2 mx-2' ></i>
                         </div>
+
                         <div class="data-card-title mx-2">
+
                             <h6>Available Room</h6>
-                            <h3>103</h3>
+                            <h3 th:text="${booking.availableRoom.size()}">103</h3>
+
                         </div>
+
                     </div>
+                    </a>
+                    <a class="text-decoration-none" th:href="@{/owner/guest}">
                     <div class="data-card">
                         <div class="data-card-icon">
                             <i class='bx bxs-log-in fs-2 mx-2 '></i>
                         </div>
+
                         <div class="data-card-title mx-2">
-                            <h6>Stay Now</h6>
-                            <h3>71</h3>
+                            <h6>Staying Now</h6>
+                            <h3 th:text="${booking.stayingGuest.size()}">71</h3>
                         </div>
                     </div>
+                    </a>
                     <div class="data-card">
                         <div class="data-card-icon">
                             <i class='bx bxs-log-out fs-2 mx-2'></i>
                         </div>
                         <div class="data-card-title mx-2">
                             <h6>Check Out</h6>
-                            <h3>29</h3>
+                            <h3 th:text="${booking.checkoutGuest.size()}">29</h3>
                         </div>
                     </div>
 
@@ -59,8 +68,8 @@
             </div>
         </div>
     </div>
-    <div th:if="${error != null}"  class="error-message text-bg-secondary text-warning my-3">
-        <th:block th:error="${error}">HAHAHA SOMETHING BREAK</th:block>
+    <div th:if="${error != null}"  class="error-message text-bg-secondary text-warning my-3 overflow-hidden">
+        <th:block th:text="${error}">HAHAHA SOMETHING BREAK</th:block>
         <i class='btn-close'></i>
     </div>
     <div class="analytics">
@@ -75,7 +84,7 @@
                     <button class="action-card action-card-active" onclick="row_Filter()">
                         ALL
                     </button>
-                    <button class="action-card" onclick="row_Filter(6,'Staying')">
+                    <button class="action-card" onclick="row_Filter('STAYING')">
                         STAY IN
                     </button>
                     <button class="action-card" onclick="row_Filter(1,'10-10-2012')">
@@ -93,7 +102,7 @@
                         <input placeholder="Search here" type="text" id="searchInput" class="form-control" onchange="searchTable()">
                         <select class="input-group-text">
                             <option value="3" selected>Mobile</option>
-                            <option value="5">status</option>
+                            <option value="5">Status</option>
                             <option value="1">Month</option>
                         </select>
                         <!--                    <button class="input-group-text btn btn" onclick="">Search</button>-->
@@ -103,7 +112,7 @@
         <div class="table-action">
 
         </div>
-        <table class="table">
+        <table class="table" th:if="${booking.allBookings.size() > 0}">
             <thead>
                 <tr>
                     <th>#Booking ID</th>
@@ -115,16 +124,18 @@
                 </tr>
             </thead>
             <tbody>
-            <tr>
-               <td><a href="/booking/123">123</a></td>
-               <td>10-10-2012</td>
-               <td>Sonu</td>
-               <td><a href="owner/guest/91081251535">91081251535</a></td>
-               <td>₹ 7000</td>
-               <td>Staying</td>
+            <tr th:each="book : ${booking.allBookings}">
+               <td><a href="/booking/123" th:href="@{'/owner/booking/'+${book.id}}">123</a></td>
+               <td th:text="${book.bookingDate}">10-10-2012</td>
+               <td th:text="${book.guest.profile.firstName + ' '+ book.guest.profile.lastName }">Sonu</td>
+               <td><a href="owner/guest/91081251535" th:href="@{'/owner/guest/' + ${book.guest.mobile}}" th:text="${book.guest.mobile}" >91081251535</a></td>
+               <td th:text="${book.rent}">₹ 7000</td>
+               <td th:text="${book.guest.status}">Staying</td>
             </tr>
             </tbody>
-
         </table>
+        <th:block th:if="${booking.allBookings.size() == 0}">
+            <div class="d-flex vh-75 justify-content-center align-items-center  fs-2 text-success">Zero Booking Recorded</div>
+        </th:block>
     </div>
 </div>

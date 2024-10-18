@@ -23,10 +23,10 @@ public class Guest  extends BaseModel{
     Profile profile;
     private LocalDate checkIN;
     private LocalDate checkOut;
-    String status;
+    GuestStatus status;
 
     Double securityMoney;
-    Integer roomValidity;
+    LocalDate roomValidity;
 
     @ManyToOne
     Room room;

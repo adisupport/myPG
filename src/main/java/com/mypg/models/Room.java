@@ -8,6 +8,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -20,8 +21,8 @@ public class Room{
     private String type;
     private Integer noOfBedEmpty;
     private RoomStatus status;
-    private Boolean isDeleted;
     private Double rent;
+    private Boolean isDeleted;
     @LastModifiedDate
     private Date modifiedAt;
 
@@ -30,4 +31,20 @@ public class Room{
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "room",cascade = CascadeType.ALL)
     List<Guest> guestList;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Room room = (Room) o;
+        return Objects.equals(number, room.number);
+    }
+
+    @Override
+    public int hashCode() {
+        if(number == null){
+            return super.hashCode();
+        }
+        return number;
+    }
 }

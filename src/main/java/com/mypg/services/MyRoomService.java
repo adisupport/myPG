@@ -131,4 +131,16 @@ public class MyRoomService implements RoomService{
             throw new NoSuchElementException("Room not found");
         }
     }
+
+    @Override
+    public List<Room> getAllAvailableRooms() {
+        List<Room> rooms  = roomRepo.findAll();
+        List<Room> availableRooms = new ArrayList<>();
+        for(Room room : rooms){
+            if(room.getStatus().equals(RoomStatus.AVAILABLE)){
+                availableRooms.add(room);
+            }
+        }
+        return availableRooms;
+    }
 }

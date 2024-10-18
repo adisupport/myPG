@@ -82,7 +82,7 @@
                         <div class="row">
                             <div class="mb-3 col-sm-6">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" th:field="*{email}" id="email" required>
+                                <input type="email" class="form-control" th:field="*{email}" id="email">
                                 <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></div>
                             </div>
                             <div class="mb-3 col-sm-6">
@@ -113,7 +113,7 @@
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="nationality" class="form-label">Nationality</label>
-                                <input type="text" th:field="*{nationality}" class="form-control" value="INDIA" PLACEHOLDER="INDIA" id="nationality" required>
+                                <input type="text" th:field="*{nationality}" class="form-control" value="INDIA" id="nationality">
                             </div>
                         </div>
                         <div class="row">
@@ -132,9 +132,13 @@
                                 <input th:field="*{dateOfBirth}" type="date" class="form-control" id="dateOfBirth" required>
                                 <div th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}" class="text-danger"></div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-3">
                                 <label for="occupation">Occupation</label>
-                                <input th:field="*{occupation}" id="occupation" type="text" class="form-control" placeholder="student"/>
+                                <input th:field="*{occupation}" id="occupation" type="text" class="form-control" placeholder="student" value="student"/>
+                            </div>
+                            <div class="col-3">
+                                <label for="age">Age</label>
+                                <input th:field="*{age}" id="age" type="number" class="form-control" placeholder="student" value="student"/>
                             </div>
                         </div>
                         <div class="row">
@@ -159,7 +163,7 @@
                         </label>
                         <div class="input-group">
                             <input th:if="${roomId == 0}" th:field="*{roomNumber}" class="form-control" id="room" type="text" placeholder="101"/>
-                            <input th:if="${roomId!=null && roomId != 0}" th:field="*{roomNumber}" th:placeholder="${roomId}" class="form-control" id="room" type="text" th:value="${roomId}"/>
+                            <input th:if="${roomId!=null && roomId != 0}" onkeypress="return false" th:field="*{roomNumber}" th:placeholder="${roomId}" class="form-control" id="room" type="text" th:value="${roomId}"/>
                             <i class='bx bxs-school input-group-text'></i>
                         </div>
                     </div>
@@ -181,21 +185,21 @@
                             <span class="input-group-text">
                                 <i class="bx bx-rupee"></i>
                             </span>
-                            <input type="text" value="2000" th:field="*{securityMoney}" class="form-control" id="securityMoney"/>
+                            <input type="text" value="2000" th:field="*{securityMoney}" required class="form-control" id="securityMoney"/>
                         </div>
                     </div>
                     <div class="col-4">
                         <label for="rent" class="form-label">Rent</label>
                         <div class="input-group">
                             <i class="bx bx-rupee input-group-text"></i>
-                            <input type="text" th:field="*{rent}" class="form-control" id="rent"/>
+                            <input type="text" th:field="*{rent}" class="form-control" id="rent" required/>
                         </div>
                     </div>
                     <div class="col-4">
                         <label for="advancePayment" class="form-label">Advance Rent Paid</label>
                         <div class="input-group">
                             <i class="bx bx-rupee input-group-text"></i>
-                            <input type="text" th:field="*{advanceRentPayment}" class="form-control" id="advancePayment"/>
+                            <input type="text" th:field="*{advanceRentPayment}" required class="form-control" id="advancePayment"/>
                         </div>
                     </div>
                 </div>

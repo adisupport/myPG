@@ -23,15 +23,15 @@
                         <input type="number" class="form-control" id="noOfBeds" placeholder="2" value="2" th:field="*{noOfBeds}" required /><br>
                         </label>
 
-                        <!-- Room Type -->
-                        <label for="type" class="form-label"> Room Type:
-                        <input type="text" id="type" th:field="*{type}" placeholder="2 Sharing" value="2 Sharing" class="form-control" required /><br>
-                        </label>
+<!--                        &lt;!&ndash; Room Type &ndash;&gt;-->
+<!--                        <label for="type" class="form-label"> Room Type:-->
+<!--                        <input type="text" id="type" th:field="*{type}" placeholder="2 Sharing" value="2 Sharing" class="form-control" required /><br>-->
+<!--                        </label>-->
 
-                        <!-- Number of Empty Beds -->
-                        <label for="noOfBedEmpty" class="form-label">Number of Empty Beds:
-                        <input type="number" id="noOfBedEmpty" class="form-control" placeholder="4" value="4" th:field="*{noOfBedEmpty}" required /><br>
-                        </label>
+<!--                        &lt;!&ndash; Number of Empty Beds &ndash;&gt;-->
+<!--                        <label for="noOfBedEmpty" class="form-label">Number of Empty Beds:-->
+<!--                        <input type="number" id="noOfBedEmpty" class="form-control" placeholder="4" value="4" th:field="*{noOfBedEmpty}" required /><br>-->
+<!--                        </label>-->
 
                         <!-- Room Status (Assuming RoomStatus is an enum) -->
                         <label for="status" class="form-label">Room Status:
@@ -58,9 +58,12 @@
     </div>
     <div class="room-page">
         <div class="row">
+            <div class="d-flex justify-content-between">
             <span class="text-dark fw-normal fs-3">Room List</span>
-            <hr/>
+            <a href="#" class="btn btn-warning" data-bs-target="#add_room_model" data-bs-toggle="modal">Add Room </a>
+            </div>
         </div>
+       <hr>
         <div th:if="${error != null && error.length()>0}" class="error-message text-bg-danger text-warning">
             <th:block th:text="${error}"></th:block>
             <i class='btn-close'></i>
@@ -86,10 +89,12 @@
                 <button class="action-card action-card-active" onclick="row_Filter()">
                     ALL
                 </button>
-                <button class="action-card" onclick="row_Filter('EMPTY')">
-                    Available Room
-                </button>
-                <button class="action-card" onclick=" row_Filter('FILLED')">
+                    <button class="action-card" onclick="row_Filter('AVAILABLE')">
+                        Available Room
+                    </button>
+
+
+                <button class="action-card" onclick="row_Filter('FULL')">
                     Filled
                 </button>
             </div>
@@ -110,7 +115,7 @@
                     </label>
 
                 </div>
-                <a href="#" class="btn btn-warning" data-bs-target="#add_room_model" data-bs-toggle="modal">Add Room </a>
+
             </div>
         </div>
             <th:block th:if="${!rooms.isEmpty()}">

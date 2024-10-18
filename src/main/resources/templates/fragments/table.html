@@ -29,7 +29,7 @@
                 <td th:text="${room.status?:'Available'}">Available</td>
                 <td><div>
                     <a th:href="${'/owner/room/'+room.number}" class="btn btn-primary">
-                        <i class='bx bxs-book-open'></i>
+                        <i class=' bx bx-show'></i>
                     </a>
                 </div>
                 </td>
@@ -70,7 +70,7 @@
                     <td th:text="${guest.checkIN}"></td>
                     <td><div>
                         <a th:href="${'/owner/guest/'+guest.mobile}" class="btn btn-primary">
-                            <i class='bx bxs-book-open'></i>
+                            <i class='bx bx-show'></i>
                         </a>
                     </div>
                     </td>
