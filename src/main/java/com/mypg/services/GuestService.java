@@ -2,9 +2,11 @@ package com.mypg.services;
 
 import com.mypg.dtos.GuestDTO;
 import com.mypg.dtos.GuestResponseDTO;
+import com.mypg.exceptions.InvoiceException;
 import com.mypg.exceptions.NoSuchRoom;
 import com.mypg.exceptions.RoomFilledException;
 import com.mypg.models.Guest;
+import com.mypg.models.Invoice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,4 +24,6 @@ public interface GuestService {
     public void checkout(Long mobile) throws NoSuchElementException;
     public List<Guest> listOfGuestCheckOut();
     public List<Guest> getAllStayingGuest();
+    public void addInvoice(Invoice invoice) throws InvoiceException;
+    public Guest getGuestByMobile(Long mobile) throws NoSuchElementException;
 }

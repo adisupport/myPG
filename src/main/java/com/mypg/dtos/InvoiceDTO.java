@@ -1,19 +1,13 @@
-package com.mypg.models;
+package com.mypg.dtos;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import com.mypg.models.Guest;
 
 import java.time.LocalDate;
 import java.time.Month;
 
-@Entity
-@Getter
-@Setter
-public class Invoice extends BaseModel{
-    @ManyToOne(optional=false)
+public class InvoiceDTO {
     private Guest guest;
-    private Month rentForMonth;
+    private String rentOfMonth;
     private Double roomRent;
     private Double amountPaid;
     private Double extraAmount;

@@ -14,7 +14,7 @@ import java.util.Date;
 @ToString
 public class GuestDTO {
 //    @NotEmpty(message = "First name is required")
-private String firstName;
+    private String firstName;
     private String lastName;
     private String email;
     private Long mobile;
