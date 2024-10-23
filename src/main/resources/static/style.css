@@ -269,3 +269,11 @@
 {
     text-align: center;
 }
+
+.reservation-details{
+    height: max-content;
+    margin-left: 16px;
+}
+.ui-menu-divider{
+
+}

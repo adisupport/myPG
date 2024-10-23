@@ -2,6 +2,7 @@ package com.mypg.services;
 
 
 import com.mypg.dtos.GuestDTO;
+import com.mypg.dtos.GuestResponseDTO;
 import com.mypg.exceptions.NoSuchRoom;
 import com.mypg.exceptions.RoomFilledException;
 import com.mypg.models.*;
@@ -11,16 +12,13 @@ import com.mypg.repo.RoomRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import javax.swing.text.html.Option;
-import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Service
 public class MyGuestServices implements GuestService {
-    private static final Logger log = LoggerFactory.getLogger(MyGuestServices.class);
     private final RoomService roomService;
     private final RoomRepo roomRepo;
     GuestRepo guestRepo;
@@ -40,8 +38,23 @@ public class MyGuestServices implements GuestService {
     }
 
     @Override
-    public Optional<Guest> findGuestByMobile(Long mobile) {
-        return Optional.empty();
+    public GuestResponseDTO findGuestByMobile(Long mobile) {
+        Optional<Guest> optional = guestRepo.findGuestByMobile(mobile);
+        if(optional.isPresent()) {
+            Guest guest = optional.get();
+            GuestResponseDTO guestDTO = new GuestResponseDTO();
+            guestDTO.setInvoices(guest.getInvoices());
+            guestDTO.setCheckIN(guest.getCheckIN());
+            guestDTO.setMobile(guest.getMobile());
+            guestDTO.setProfile(guest.getProfile());
+            guestDTO.setStatus(guest.getStatus());
+            guestDTO.setRoom(guest.getRoom());
+            LocalDate day = guest.getRoomValidity();
+            guestDTO.setRoomValidityInDays(ChronoUnit.DAYS.between(day, LocalDate.now()));
+            guestDTO.setSecurityMoney(guest.getSecurityMoney());
+            return guestDTO;
+        }
+        throw new NoSuchElementException("Guest not found");
     }
 
 
@@ -69,7 +82,10 @@ public class MyGuestServices implements GuestService {
             Guest guest = convertDtoToGuest(dto);
             guest.setRoom(room);
             guest.setCheckIN(LocalDate.now());
+            guest.setRoomValidity(LocalDate.now());
             guest.setSecurityMoney(dto.getSecurityMoney());
+            guest.setSecurityMoney(dto.getSecurityMoney());
+            guest.setStatus(GuestStatus.STAYING);
             return guestRepo.save(guest);
         }
         throw new RoomFilledException(roomNumber);
@@ -97,13 +113,9 @@ public class MyGuestServices implements GuestService {
 
     @Override
     public void extendRoomValidityBy(Long mobile, Integer days)  throws NoSuchElementException {
-        Optional<Guest> guestOptional= this.findGuestByMobile(mobile);
-        if(guestOptional.isPresent()){
-            Guest guest = guestOptional.get();
+            Guest guest = guestRepo.findGuestByMobile(mobile).get();
             guest.setRoomValidity(LocalDate.now().plusDays(days));
             guestRepo.save(guest);
-        }
-        throw  new NoSuchElementException("Guest with "+mobile+", these mobile number not exist");
     }
     public List<Guest> getAllStayingGuest(){
         List<Guest> allGuests =  guestRepo.findAll();

@@ -1,6 +1,8 @@
 package com.mypg.controllers.owner;
 
 import com.mypg.dtos.GuestDTO;
+import com.mypg.dtos.GuestResponseDTO;
+import com.mypg.models.Guest;
 import com.mypg.services.GuestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +49,8 @@ public class GuestController {
     @GetMapping("/{mobile}")
     public String getGuestDetailPage(@PathVariable("mobile") Long mobile, Model model){
         model.addAttribute("pageName","Guest Detail Page");
+        GuestResponseDTO guest = guestService.findGuestByMobile(mobile);
+        model.addAttribute("guest",guest);
         return "/owner/pages/guest_detail";
     }
 }
