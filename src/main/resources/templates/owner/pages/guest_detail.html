@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:if="${pageName!=null}" th:replace="~{fragments/head::head(${pageName.toUpperCase()})}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="page">
+    <div class="sidebar-2 ">
+        <div class="sidebar-toggler">
+            <i class='bx bxs-chevron-right toggle'></i>
+        </div>
+        <div class="sidebar-2-header">
+            <img alt="logo"
+                 src="https://th.bing.com/th/id/OIP.Sc-pGDkmKH6dLZgbWk-3uAHaHa?w=175&h=180&c=7&r=0&o=5&pid=1.7"
+                 width="80%">
+        </div>
+        <div class="sidebar-2-body">
+            <a class="tab" href="/owner">
+                <i class='bx bxs-home icon'></i>
+                <span class="text tab-text">HOME</span>
+            </a>
+            <a class="tab" href="/owner/guest">
+                <i class='bx bxs-user-rectangle icon'></i>
+                <span class="text tab-text">GUESTS</span>
+            </a>
+            <a class="tab" href="/owner/room">
+                <i class='bx bx-building-house icon'></i>
+                <span class="text tab-text">ROOMS</span>
+            </a>
+            <a class="tab" href="/owner/invoice">
+                <i class='bx bx-receipt icon'></i>
+                <span class="text tab-text">INVOICES</span>
+            </a>
+            <a class="tab" href="/owner/complain">
+                <i class='bx bx-comment-edit icon'></i>
+                <span class="text tab-text">COMPLAINS</span>
+            </a>
+        </div>
+        <div class="sidebar-2-footer">
+            <a class="tab" href="/logout">
+                <i class='bx bx-log-out icon'></i>
+                <span class="text tab-text">Logout</span>
+            </a>
+            <div class="tab">
+                <div class="moon-sun">
+                    <i class='bx bx-moon icon moon'></i>
+                    <!-- <i class='bx bx-sun icon sun'></i> -->
+                </div>
+                <span class="mode-text tab-text ">Light</span>
+                <div class="toggle-switch">
+                    <span class="switch"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content p-3 overflow-scroll">
+        <a href="/owner/guest"><i class="bx bx-arrow-back fs-2 text-secondary"></i></a>
+        <div class="page-title">
+            <div class="d-flex justify-content-between mx-4 mb-3">
+                <span class="fs-1 text-primary">Ajay Kumar</span>
+                <a href="/owner/guest/edit"><i class="fs-2 bx bx-edit"></i></a>
+            </div>
+            <hr/>
+        </div>
+        <div class="row p-3">
+            <div class="row gx-5">
+                <div class="col guest-details details-section border rounded p-3">
+                    <h3 class="text-secondary">Guest Details</h3>
+                    <div class="row">
+                        <span class="label col-4 fw-bold">Full Name</span>
+                        <span class="value col-8">Ajay Kumar</span>
+                    </div>
+                    <div class="row">
+                        <span class="label col-4 fw-bold">Mobile</span>
+                        <span class="value col-8 text-primary">5431897231</span>
+                    </div>
+                    <div class="row">
+                        <span class="label col-4">Age</span>
+                        <span class="value col-8">24</span>
+                    </div>
+                    <div class="row hide collapse" >
+                        <div class="row">
+                            <span class="label col-4">Address</span>
+                            <span class="value col-8">SNR PG,1st Cross,1st Main Road,N.S Palya Road, BTM
+                        Stage 2, BTM Layout,Bangalore</span>
+                        </div>
+                        <div class="row">
+                            <span class="label col-4">City</span>
+                            <span class="value col-8">Karnataka</span>
+                        </div>
+                        <div class="row">
+                            <span class="label col-4">State</span>
+                            <span class="value col-8">Bihar</span>
+                        </div>
+                        <div class="row">
+                            <span class="label col-4">Nationality</span>
+                            <span class="value col-8">India</span>
+                        </div>
+                        <div class="row">
+                            <span class="label col-4">Aadhaar</span>
+                            <span class="value col-8">3452-5646-8546-5655</span>
+                        </div>
+                        <div class="row">
+                            <sup class="col">
+                                <hr/>
+                            </sup><span class="col-1">OR</span><sup class="col">
+                            <hr>
+                        </sup>
+                        </div>
+                        <div class="row">
+                            <span class="label col-4">Pan Card</span>
+                            <span class="value col-8">GPIK532T</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col reservation-details details-section border rounded p-3">
+                    <h3 class="text-secondary">Reservation Details</h3>
+                    <div class="row">
+                        <span class="label col-6">Booking Date</span>
+                        <span class="value col-6">23-5-2023</span>
+                    </div>
+                    <div class="row">
+                        <span class="label col-6">Guest Status</span>
+                        <span class="value col-6">Staying</span>
+                    </div>
+                    <div class="row">
+                        <span class="label col-6">Room Validity</span>
+                        <span class="value col-6">24</span>
+                    </div>
+                    <div class="hide collapse">
+                        <div class="row">
+                            <span class="label col-6">Security Money Paid</span>
+                            <span class="value col-6">2000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="guest-invoice">
+            <div class="card">
+                <div class="card-header text-bg-primary">
+                    Rents List
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Rent For</th>
+                            <th>Rent</th>
+                            <th>Payment Date</th>
+                            <th>Amount Paid</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                October
+                            </td>
+                            <td>
+                                6000
+                            </td>
+                            <td>
+                                9-10-2024
+                            </td>
+                            <td>
+                                6000
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>
+                                September
+                            </td>
+                            <td>
+                                6000
+                            </td>
+                            <td>
+                                9-9-2024
+                            </td>
+                            <td>
+                                6000
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:replace="~{fragments/footer::footer}"></th:block>
+</body>
+</html>

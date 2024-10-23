@@ -1,3 +1,141 @@
 <div class="main" th:fragment="page">
-    <h1>HOME PAGE </h1>
+    <div class="page-title">
+         <h5 class="text-secondary">Home</h5>
+        <div class="d-flex justify-content-between">
+            <span class="fs-1 text-primary">PGEase</span>
+            <div class="mr-2">
+                <a href="/owner/booking" class="btn btn-success d-flex align-item-center">
+                    <i class='bx bx-plus fs-4 px-2'></i>
+                    Create New Booking
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="data-card-ls">
+        <div class="card">
+            <div class="card-header">
+                RESERVATION DETAILS
+            </div>
+            <div class="card-body">
+                <div class="data-card-holder text-primary">
+                    <div class="data-card">
+                        <div class="data-card-icon">
+                            <i class='bx bx-book-open fs-2 mx-2'></i>
+                        </div>
+                        <div class="data-card-title mx-2">
+                            <h6>New Booking</h6>
+                            <h3 th:text="${booking.bookings.size()}">173</h3>
+                        </div>
+                    </div>
+                    <a class="text-decoration-none" th:href="@{/owner/room?search=available}">
+                    <div class="data-card">
+                        <div class="data-card-icon">
+                            <i class='bx bx-bed fs-2 mx-2' ></i>
+                        </div>
+
+                        <div class="data-card-title mx-2">
+
+                            <h6>Available Room</h6>
+                            <h3 th:text="${booking.availableRoom.size()}">103</h3>
+
+                        </div>
+
+                    </div>
+                    </a>
+                    <a class="text-decoration-none" th:href="@{/owner/guest}">
+                    <div class="data-card">
+                        <div class="data-card-icon">
+                            <i class='bx bxs-log-in fs-2 mx-2 '></i>
+                        </div>
+
+                        <div class="data-card-title mx-2">
+                            <h6>Staying Now</h6>
+                            <h3 th:text="${booking.stayingGuest.size()}">71</h3>
+                        </div>
+                    </div>
+                    </a>
+                    <div class="data-card">
+                        <div class="data-card-icon">
+                            <i class='bx bxs-log-out fs-2 mx-2'></i>
+                        </div>
+                        <div class="data-card-title mx-2">
+                            <h6>Check Out</h6>
+                            <h3 th:text="${booking.checkoutGuest.size()}">29</h3>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${error != null}"  class="error-message text-bg-secondary text-warning my-3 overflow-hidden">
+        <th:block th:text="${error}">HAHAHA SOMETHING BREAK</th:block>
+        <i class='btn-close'></i>
+    </div>
+    <div class="analytics">
+
+    </div>
+    <div class="booking-table my-5">
+        <h5 class="text-secondary">Booking history</h5>
+        <div class="table-search">
+            </div>
+            <div class="table-section d-flex">
+                <div class="col-5">
+                    <button class="action-card action-card-active" onclick="row_Filter()">
+                        ALL
+                    </button>
+                    <button class="action-card" onclick="row_Filter('STAYING')">
+                        STAY IN
+                    </button>
+                    <button class="action-card" onclick="row_Filter(1,'10-10-2012')">
+                        THIS MONTH
+                    </button>
+                </div>
+<!--                <div class="col-lg-3 text-end">-->
+<!--                    <a href="#" class="btn btn-warning" data-bs-target="#add_guest_model" data-bs-toggle="modal"> Add Guest</a>-->
+<!--                </div>-->
+                <div class="search-box">
+                    <label class="input-group">
+                        <span class="input-group-text">
+                            <i class="bx bx-search"></i>
+                        </span>
+                        <input placeholder="Search here" type="text" id="searchInput" class="form-control" onchange="searchTable()">
+                        <select class="input-group-text">
+                            <option value="3" selected>Mobile</option>
+                            <option value="5">Status</option>
+                            <option value="1">Month</option>
+                        </select>
+                        <!--                    <button class="input-group-text btn btn" onclick="">Search</button>-->
+                    </label>
+            </div>
+        </div>
+        <div class="table-action">
+
+        </div>
+        <table class="table" th:if="${booking.allBookings.size() > 0}">
+            <thead>
+                <tr>
+                    <th>#Booking ID</th>
+                    <th>Date</th>
+                    <th>First Name</th>
+                    <th>Contact</th>
+                    <th>paid</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr th:each="book : ${booking.allBookings}">
+               <td><a href="/booking/123" th:href="@{'/owner/booking/'+${book.id}}" th:text="${book.id}">123</a></td>
+               <td th:text="${book.bookingDate}">10-10-2012</td>
+               <td th:text="${book.guest.profile.firstName + ' '+ book.guest.profile.lastName }">Sonu</td>
+               <td><a href="owner/guest/91081251535" th:href="@{'/owner/guest/' + ${book.guest.mobile}}" th:text="${book.guest.mobile}" >91081251535</a></td>
+               <td th:text="${book.rent}">₹ 7000</td>
+               <td th:text="${book.guest.status}">Staying</td>
+            </tr>
+            </tbody>
+        </table>
+        <th:block th:if="${booking.allBookings.size() == 0}">
+            <div class="d-flex vh-75 justify-content-center align-items-center  fs-2 text-success">Zero Booking Recorded</div>
+        </th:block>
+    </div>
 </div>

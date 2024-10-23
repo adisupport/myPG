@@ -1,0 +1,30 @@
+.data-card{
+    display: flex;
+    justify-content: center;
+    width: max-content;
+
+    padding: 7px 10px 0 10px;
+    margin: 0 5px;
+    background-color: #cccccc;
+    /*width: 180px;*/
+    border-radius: 8px;
+}
+.data-card-icon{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    /*background-color: red;*/
+}
+.data-card-holder{
+    /*display: grid;*/
+    display: flex;
+    justify-content: space-evenly;
+}
+.data-card-title{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.search-box{
+    width: max-content;
+}

@@ -1,5 +1,6 @@
 package com.mypg.services;
 
+import com.mypg.exceptions.NoSuchRoom;
 import com.mypg.exceptions.RoomAlreadyExist;
 import com.mypg.models.Guest;
 import com.mypg.models.Image;
@@ -107,10 +108,10 @@ public class MyRoomService implements RoomService{
     }
 
     @Override
-    public Room getRoom(Integer roomID) throws NoSuchElementException{
+    public Room getRoom(Integer roomID) throws NoSuchRoom {
         Optional<Room> room = roomRepo.findById(roomID);
         if(room.isEmpty()) {
-            throw new NoSuchElementException("Invalid Room Number");
+            throw new NoSuchRoom("Invalid Room Number");
         }
         return room.get();
     }
@@ -129,5 +130,17 @@ public class MyRoomService implements RoomService{
         }else{
             throw new NoSuchElementException("Room not found");
         }
+    }
+
+    @Override
+    public List<Room> getAllAvailableRooms() {
+        List<Room> rooms  = roomRepo.findAll();
+        List<Room> availableRooms = new ArrayList<>();
+        for(Room room : rooms){
+            if(room.getStatus().equals(RoomStatus.AVAILABLE)){
+                availableRooms.add(room);
+            }
+        }
+        return availableRooms;
     }
 }

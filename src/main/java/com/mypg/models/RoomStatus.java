@@ -1,9 +1,5 @@
 package com.mypg.models;
 
 public enum RoomStatus {
-    EMPTY,
-    NEW,
-    OutOFOrder,
-    FULL,
-    VACANT,
+    AVAILABLE,FULL,OUT_OF_SERVICE
 }

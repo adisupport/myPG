@@ -61,7 +61,7 @@
             <div th:replace="~{owner/pages/home::page}"></div>
         </th:block>
         <th:block th:if="${pageName!= null && pageName.equals('room')}">
-            <div th:replace="~{owner/pages/room::page(${rooms},${room},${status},${errormessage})}"></div>
+            <div th:replace="~{owner/pages/room::page(${rooms},${room},${status},${error})}"></div>
         </th:block>
         <th:block th:if="${pageName!= null && pageName.equals('guest')}">
             <div th:replace="~{owner/pages/guest::page}"></div>

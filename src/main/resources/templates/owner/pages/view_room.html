@@ -1,123 +1,238 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/html">
-<head th:replace="~{fragments/head::head('Room Details')}">
+<html lang="en">
+<head th:replace="~{fragments/head::head(${pageName!=null?pageName.toUpperCase():'ROOM 101'})}">
     <meta charset="UTF-8">
-    <title>Room Details</title>
+    <title>Title</title>
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row bg-secondary p-3">
-        <div class="card my-2  col-sm-5">
-            <div id="carouselExample" class="carousel slide">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img
-                                src="https://cdn.dribbble.com/userupload/12056809/file/original-3fdef2a58c10d620a18a3f440daf2ab9.png?resize=400x300&vertical=center"
-                                class="d-block w-100"
-                                alt="..."
-                        />
-                    </div>
-                    <div class="carousel-item">
-                        <img
-                                src="https://cdn.dribbble.com/userupload/12056809/file/original-3fdef2a58c10d620a18a3f440daf2ab9.png?resize=400x300&vertical=center"
-                                class="d-block w-100"
-                                alt="..."
-                        />
-                    </div>
-                    <div class="carousel-item">
-                        <img
-                                src="data:image/jpeg;base64,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"
-                                class="d-block w-100"
-                                alt="..."
-                        />
-                    </div>
-                </div>
-                <button
-                        class="carousel-control-prev"
-                        type="button"
-                        data-bs-target="#carouselExample"
-                        data-bs-slide="prev"
-                >
-              <span
-                      class="carousel-control-prev-icon"
-                      aria-hidden="true"
-              ></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button
-                        class="carousel-control-next"
-                        type="button"
-                        data-bs-target="#carouselExample"
-                        data-bs-slide="next"
-                >
-              <span
-                      class="carousel-control-next-icon"
-                      aria-hidden="true"
-              ></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
+<div class="page">
+    <div class="sidebar-2 ">
+        <div class="sidebar-toggler">
+            <i class='bx bxs-chevron-right toggle'></i>
         </div>
-        <div class="col-sm-7 my-auto">
-            <div class="card">
-                <div class="card-header">Room Information</div>
-                <div class="card-body">
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <td class="col-sm-3"><strong>Room Number:</strong></td>
-                            <td th:text="${room.number}">102</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Floor Number:</strong></td>
-                            <td th:text="${room.floor}">2</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Room Status:</strong></td>
-                            <td th:text="${room.status}">Available</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Total Beds:</strong></td>
-                            <td th:text="${room.noOfBeds}">3</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Empty Beds:</strong></td>
-                            <td th:text="${room.noOfBedEmpty}">2</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="card-footer text-muted text-center">
-                    <strong>Last Updated:</strong> <span th:text="${room.modifiedAt}">2024-09-30</span>
-                </div>
-            </div>
+        <div class="sidebar-2-header">
+            <img width="80%"
+                 src="https://th.bing.com/th/id/OIP.Sc-pGDkmKH6dLZgbWk-3uAHaHa?w=175&h=180&c=7&r=0&o=5&pid=1.7"
+                 alt="logo">
         </div>
-        <div class="mt-4">
-            <div class="card">
-                <div class="card-header">Guest Details</div>
-                <div class="card-body">
-                    <div th:if="${room.guestList.size()!=0}" class="list-group" th:each="guest:${room.guestList}">
-                        <a
-                                th:href="${'owner/guests/' + guest.id}"
-                                href="#"
-                                class="list-group-item list-group-item-action flex-column align-items-start"
-                        >
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1" th:text="${guest.name}">John Doe</h5>
-                                <small>Last contacted: <span th:text="${guest.updatedAt}">2024-09-25</span></small>
-                            </div>
-                            <p class="mb-1">Email: <span th:text="${guest.profile.email}">john.doe@example.com</span>></p>
-                            <p class="mb-1">Phone: <span th:text="${guest.profile.phone}">(123) 456-7890</span></p>
-                        </a>
-                    </div>
-                    <div class="text-center text-info"  th:if="${room.guestList.size() == 0}">
-                        <h3>No Guest Added Yet....!</h3>
-                    </div>
+        <div class="sidebar-2-body">
+            <a class="tab" href="/owner">
+                <i class='bx bxs-home icon'></i>
+                <span class="text tab-text">HOME</span>
+            </a>
+            <a class="tab" href="/owner/guest">
+                <i class='bx bxs-user-rectangle icon'></i>
+                <span class="text tab-text">GUESTS</span>
+            </a>
+            <a class="tab" href="/owner/room">
+                <i class='bx bx-building-house icon'></i>
+                <span class="text tab-text">ROOMS</span>
+            </a>
+            <a class="tab" href="/owner/invoice">
+                <i class='bx bx-receipt icon'></i>
+                <span class="text tab-text">INVOICES</span>
+            </a>
+            <a class="tab" href="/owner/complain">
+                <i class='bx bx-comment-edit icon'></i>
+                <span class="text tab-text">COMPLAINS</span>
+            </a>
+        </div>
+        <div class="sidebar-2-footer">
+            <a class="tab" href="/logout">
+                <i class='bx bx-log-out icon'></i>
+                <span class="text tab-text">Logout</span>
+            </a>
+            <div class="tab">
+                <div class="moon-sun">
+                    <i class='bx bx-moon icon moon'></i>
+                    <!-- <i class='bx bx-sun icon sun'></i> -->
+                </div>
+                <span class="mode-text tab-text ">Light</span>
+                <div class="toggle-switch">
+                    <span class="switch"></span>
                 </div>
             </div>
         </div>
     </div>
+    <div class="content p-3 overflow-scroll">
+        <a href="/owner/room">
+            <i class="bx bx-arrow-back fs-3 text-secondary"></i>
+        </a>
+        <div class="page-title">
+            <div class="d-flex justify-content-between mx-4 mb-3">
+                <span class="fs-3 text-primary">Room 101</span>
+                <i class="fs-2 bx bx-edit" onclick="toggleEdit(true)"></i>
+            </div>
+            <hr/>
+        </div>
+        <div class="row">
+            <!-- Images Section -->
+            <div class="col-md-6">
+                <div id="room-images" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <!-- Dynamically populate room images -->
+                        <div class="carousel-item active">
+                            <img src="/path-to-image1.jpg" class="d-block w-100" alt="Room Image 1">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/path-to-image2.jpg" class="d-block w-100" alt="Room Image 2">
+                        </div>
+                        <!-- Add more images as needed -->
+                    </div>
+                    <a class="carousel-control-prev" href="#room-images" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#room-images" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Room Details Section -->
+            <div class="text-bg-light rounded p-3 col-md-6">
+                <h3>Room Details</h3>
+                <form class="p-3" id="roomForm" action="/owner/room/edit" th:action="@{/owner/room/edit}" th:object="${updateRoom}" method="post">
+                    <div class="form-group">
+                        <label>Room Number</label>
+                        <p id="roomNumberDisplay">101</p>
+                        <input type="number" id="roomNumber" th:field="*{number}" class="form-control d-none" value="101" readonly>
+                    </div>
+                    <div class="row gx-1">
+                        <div class="form-group col">
+                            <label>Number of Beds</label>
+                            <p id="bedsDisplay">2</p>
+                            <input type="number" id="beds" th:field="*{noOfBeds}" class="form-control d-none" value="2" readonly>
+                        </div>
+                        <div class="form-group col">
+                            <label>Empty Beds</label>
+                            <p id="emptyBedsDisplay">1</p>
+                            <input type="number" id="emptyBeds" class="form-control d-none" value="1" readonly>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label>Room Type</label>
+                            <p id="typeDisplay">Standard</p>
+                            <input type="text" id="type" class="form-control d-none" th:field="*{type}" value="Standard" readonly>
+                        </div>
+                        <div class="form-group col">
+                            <label>Status</label>
+                            <p id="statusDisplay">Available</p>
+                            <select th:field="*{status}" id="status" class="form-control d-none" name="status" disabled>
+                                <option value="Available">Available</option>
+                                <option value="Full">Full</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Rent</label>
+                        <p id="rentDisplay">$500</p>
+                        <input type="number" id="rent" th:field="*{rent}" class="form-control d-none" value="500" readonly>
+                    </div>
+
+                    <!-- Edit and Save Buttons -->
+                    <button type="button" id="editBtn" class="btn btn-primary mt-3 d-none" onclick="toggleEdit(true)">Edit Room</button>
+                    <button type="submit" id="saveBtn" class="btn btn-success mt-3 d-none" onclick="toggleEdit(false)">Save Changes</button>
+                    <a href=`/owner/booking` th:href="@{/owner/booking?roomId=102}" class="btn btn-secondary mt-3">Book Room</a>
+                </form>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <h4>Guests Living in this Room</h4>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Guest Name</th>
+                        <th>Age</th>
+                        <th>Check-in Date</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Dynamically populate guest data -->
+                    <tr>
+                        <td>John Doe</td>
+                        <td>30</td>
+                        <td>2024-10-01</td>
+                        <td>
+                            <a href="/guest-details/1" class="btn btn-info btn-sm">View</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Jane Smith</td>
+                        <td>28</td>
+                        <td>2024-10-05</td>
+                        <td>
+                            <a href="/guest-details/2" class="btn btn-info btn-sm">View</a>
+                        </td>
+                    </tr>
+                    <!-- Add more guests as needed -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
-    <th:block th:replace="~{fragments/footer::footer}"></th:block>
+<script>
+    function toggleEdit(editMode) {
+        const displayElements = {
+            roomNumber: document.getElementById('roomNumberDisplay'),
+            // floor: document.getElementById('floorDisplay'),
+            beds: document.getElementById('bedsDisplay'),
+            emptyBeds: document.getElementById('emptyBedsDisplay'),
+            type: document.getElementById('typeDisplay'),
+            status: document.getElementById('statusDisplay'),
+            rent: document.getElementById('rentDisplay')
+        };
+
+        const inputElements = {
+            roomNumber: document.getElementById('roomNumber'),
+            // floor: document.getElementById('floor'),
+            beds: document.getElementById('beds'),
+            emptyBeds: document.getElementById('emptyBeds'),
+            type: document.getElementById('type'),
+            status: document.getElementById('status'),
+            rent: document.getElementById('rent')
+        };
+
+        const editBtn = document.getElementById('editBtn');
+        const saveBtn = document.getElementById('saveBtn');
+
+        if (editMode) {
+            // Convert to input mode and set original values to inputs
+            inputElements.roomNumber.value = displayElements.roomNumber.innerHTML;
+            // inputElements.floor.value = displayElements.floor.innerHTML;
+            inputElements.beds.value = displayElements.beds.innerHTML;
+            inputElements.emptyBeds.value = displayElements.emptyBeds.innerHTML;
+            inputElements.type.value = displayElements.type.innerHTML;
+            inputElements.rent.value = displayElements.rent.innerHTML.replace('$', ''); // Remove $ sign from rent
+
+            // For status, set the selected value
+            const currentStatus = displayElements.status.innerHTML.trim();
+            inputElements.status.value = currentStatus;
+
+            // Hide display elements and show inputs
+            for (let key in displayElements) {
+                displayElements[key].classList.add('d-none');
+                inputElements[key].classList.remove('d-none');
+                inputElements[key].removeAttribute('readonly');
+            }
+
+            // Enable the select dropdown for status
+            inputElements.status.removeAttribute('disabled');
+
+            editBtn.classList.add('d-none');
+            saveBtn.classList.remove('d-none');
+        } else {
+            // On save, submit the form (handled by the form submission)
+        }
+    }
+
+</script>
+<th:block th:replace="~{fragments/footer::footer}"></th:block>
 </body>
 </html>

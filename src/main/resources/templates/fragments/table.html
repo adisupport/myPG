@@ -6,7 +6,9 @@
 </head>
 
 <body>
-    <div th:if="${rooms!=null}" th:fragment="roomTable(rooms)" class="room-table">
+
+    <div th:fragment="roomTable(rooms)" class="room-table">
+        <div th:if="${rooms!=null}" class="table-responsive">
         <table class="table">
             <thead>
             <tr>
@@ -27,16 +29,56 @@
                 <td th:text="${room.status?:'Available'}">Available</td>
                 <td><div>
                     <a th:href="${'/owner/room/'+room.number}" class="btn btn-primary">
-                        <i class='bx bxs-book-open'></i>
+                        <i class=' bx bx-show'></i>
                     </a>
                 </div>
                 </td>
             </tr>
             </tbody>
         </table>
+        </div>
     </div>
-    <div th:else>
-        No Room
+    <div th:fragment="guestTable(guests)" class="room-table">
+        <div th:if="${guests != null}">
+            <table class="table">
+                <thead>
+                <tr class="text-center">
+                    <th>ID</th>
+                    <th>Mobile</th>
+                    <th>Full Name</th>
+<!--                    <th>Last Name</th>-->
+                    <th>Room Number</th>
+                    <th>Status</th>
+                    <th>Check-In</th>
+<!--                    <th>Check-Out</th>-->
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="room_data text-bg-success text-center" th:each="guest: ${guests}">
+
+                    <td th:text="${guest.id}"></td>
+                    <td th:text="${guest.mobile}"></td>
+                    <td th:text="${guest.profile.firstName +' ' +guest.profile.lastName}"></td>
+<!--                    <td th:text="${guest.profile.lastName}"></td>-->
+
+
+<!--                    <td th:text="${guest.checkOut}"></td>-->
+                    <td th:if="${guest.room != null}" th:text="${guest.room.number}"></td>
+                    <td th:if="${guest.room == null}">N/A</td>
+                    <td th:text="${guest.status}"></td>
+                    <td th:text="${guest.checkIN}"></td>
+                    <td><div>
+                        <a th:href="${'/owner/guest/'+guest.mobile}" class="btn btn-primary">
+                            <i class='bx bx-show'></i>
+                        </a>
+                    </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
+
 </body>
 </html>

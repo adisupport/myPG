@@ -62,6 +62,7 @@
     display: flex;
     background-color: white;
 }
+
 .sidebar-2{
     background-color: var(--sidebar-bg-color);
      /*background: linear-gradient(45deg,rgb(66, 15, 207),rgb(77, 77, 148));*/
@@ -169,14 +170,15 @@
 /*Room Page Styles*/
 .room-actions{
     display: flex;
-    width: 100%;
-    padding: 15px 20px 15px 10px;
+    width: max-content;
+    padding: 15px 20px 15px 0;
     position: sticky;
     margin-bottom: 18px;
     top: 0;
     /*#007BFF*/
-    background-color: #007BFF;
+    /*background-color: rgba(119, 39, 205, 0.7);*/
     border-radius: 8px;
+    /*border-bottom:1px solid dodgerblue ;*/
     justify-content: space-between;
     align-items: center;
 
@@ -204,5 +206,74 @@
 .highlight {
     background-color: yellow;!important;
     color: yellow;
+
+}
+.action-card{
+    padding: 5px 10px;
+    /*background-color: #14c3c8;*/
+    /*color: white;*/
+    width: max-content;
+    font-size: 12px;
+    border: none;
+    border-radius: 8px;
+}
+.action-card-active{
+    background-color: #1cac07;
+    color: white;
+}
+
+.table-section{
+    background-color: white;
+    padding: 8px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    /*display: flex;*/
+    justify-content: space-between;
+    align-items: center;
+}
+.page{
+    /*background-color: darkkhaki;*/
+}
+.details-section{
+    /*display: grid;*/
+    /*grid-template-columns: repeat(2,1fr);*/
+    /*row-gap: 10px;*/
+    /*grid-column-gap: 10px;*/
+    font-size: 1.2rem;
+    transition: .67s;
+    height: max-content;
+    /*border: 1px solid grey;*/
+    /*border-radius: 8px;*/
+    border-bottom:1px solid blue;
+    margin: 16px 0;
+    padding: 1rem;
+}
+.details-section input{
+    margin-left: 12px;
+    padding: 15px 0 15px 10px;
+    /*text-align: center;*/
+}
+.details-section .row{
+    display: flex;
+    /*justify-content: space-evenly;*/
+    margin: 16px 0;
+}
+.details-section .col{
+    margin: 0 16px;
+}
+
+.details-section #show{
+
+}
+.input-center input
+{
+    text-align: center;
+}
+
+.reservation-details{
+    height: max-content;
+    margin-left: 16px;
+}
+.ui-menu-divider{
 
 }
