@@ -3,10 +3,12 @@ package com.mypg.services;
 
 import com.mypg.dtos.GuestDTO;
 import com.mypg.dtos.GuestResponseDTO;
+import com.mypg.exceptions.InvoiceException;
 import com.mypg.exceptions.NoSuchRoom;
 import com.mypg.exceptions.RoomFilledException;
 import com.mypg.models.*;
 import com.mypg.repo.GuestRepo;
+import com.mypg.repo.InvoiceRepo;
 import com.mypg.repo.ProfileRepo;
 import com.mypg.repo.RoomRepo;
 import org.slf4j.Logger;
@@ -14,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
@@ -21,14 +24,18 @@ import java.util.*;
 public class MyGuestServices implements GuestService {
     private final RoomService roomService;
     private final RoomRepo roomRepo;
+    private final InvoiceService invoiceService;
     GuestRepo guestRepo;
     ProfileRepo profileRepo;
 
-    MyGuestServices(GuestRepo guestRepo, ProfileRepo profileRepo, RoomService roomService, RoomRepo roomRepo) {
+    MyGuestServices(GuestRepo guestRepo, ProfileRepo profileRepo,
+                    RoomService roomService, RoomRepo roomRepo,
+                    InvoiceService invoiceService) {
         this.profileRepo = profileRepo;
         this.guestRepo = guestRepo;
         this.roomService = roomService;
         this.roomRepo = roomRepo;
+        this.invoiceService = invoiceService;
     }
 
 
@@ -50,7 +57,7 @@ public class MyGuestServices implements GuestService {
             guestDTO.setStatus(guest.getStatus());
             guestDTO.setRoom(guest.getRoom());
             LocalDate day = guest.getRoomValidity();
-            guestDTO.setRoomValidityInDays(ChronoUnit.DAYS.between(day, LocalDate.now()));
+            guestDTO.setRoomValidityInDays(ChronoUnit.DAYS.between(LocalDate.now(),day));
             guestDTO.setSecurityMoney(guest.getSecurityMoney());
             return guestDTO;
         }
@@ -91,7 +98,14 @@ public class MyGuestServices implements GuestService {
         throw new RoomFilledException(roomNumber);
 
     }
-
+    @Override
+    public Guest getGuestByMobile(Long mobile) throws NoSuchElementException{
+        Optional<Guest> optional = guestRepo.findGuestByMobile(mobile);
+        if(optional.isPresent()) {
+            return optional.get();
+        }
+        throw new NoSuchElementException("Guest not found");
+    }
     @Override
     public List<Guest> findGuestByRoom(Integer roomNumber) throws NoSuchRoom  {
         Optional<Room> room = roomRepo.findByNumber(roomNumber);
@@ -138,7 +152,34 @@ public class MyGuestServices implements GuestService {
         }
         return checkout;
     }
-
+    public void addInvoice(Invoice invoice) throws InvoiceException {
+        System.out.println("-------Add Invoice---------");
+        Double amount = invoice.getAmountPaid();
+        Double extraAmount = invoice.getExtraAmount();
+        String extraReason = invoice.getExtraAmountNote();
+        Month rentForWhichMonth = invoice.getRentForMonth();
+        LocalDate paymentDate = invoice.getPaymentDate();
+        Double roomRent = invoice.getRoomRent();
+        String data = String.format(Locale.ENGLISH,"Received Data {Room Rent: %f, Amount Paid: %f, Payment Date: %s  }",roomRent,amount,paymentDate.toString());
+        System.out.println(data);
+        if(roomRent == null){
+            roomRent = invoice.getGuest().getInvoices().get(0).getRoomRent();
+        }
+        if(extraAmount == null){
+            extraAmount =  0.0;
+        }
+        if(roomRent + extraAmount != amount){
+            throw new InvoiceException("Invoice amount is incorrect");
+        }
+        System.out.println("Called Create Invoice Services");
+        invoiceService.createInvoice(roomRent,
+                amount,
+                extraAmount,
+                extraReason,
+                rentForWhichMonth,
+                paymentDate,
+                invoice.getGuest());
+    }
     @Override
     public void checkout(Long mobile) throws NoSuchElementException{
         Optional<Guest> optional = guestRepo.findGuestByMobile(mobile);
