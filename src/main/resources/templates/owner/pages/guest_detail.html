@@ -143,7 +143,11 @@
         <div class="page-title">
             <div class="d-flex justify-content-between mx-4 mb-3">
                 <span class="fs-1 text-primary" th:text="${guest.profile.firstName+' '+guest.profile.lastName}">Ajay Kumar</span>
-                <a href="/owner/guest/edit"><i class="fs-2 bx bx-edit"></i></a>
+                <div class="d-flex align-items-center">
+                    <a class="mx-3" href="/owner/guest/edit"><i class="fs-2 bx bx-edit"></i></a>
+                    <a th:if="${guest.status != 'CHECKOUT'}" th:href="@{'/owner/guest/'+${guest.mobile}+'/checkout'}" class="btn btn-danger">Checkout</a>
+                </div>
+
             </div>
             <hr/>
         </div>
@@ -210,7 +214,7 @@
                         <span class="label col-6">Guest Status</span>
                         <span class="value col-6" th:text="${guest.status}">Staying</span>
                     </div>
-                    <div class="row">
+                    <div class="row" th:if="${guest.room}">
                         <span class="label col-6">Room Number</span>
                         <a class="value col-6" th:href="@{'/owner/room/'+${guest.room.number}}" th:text="${guest.room.number!=null?guest.room.number:'101'}">
                             101

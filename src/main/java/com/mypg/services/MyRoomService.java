@@ -1,5 +1,6 @@
 package com.mypg.services;
 
+import com.mypg.dtos.RoomDTO;
 import com.mypg.exceptions.NoSuchRoom;
 import com.mypg.exceptions.RoomAlreadyExist;
 import com.mypg.models.Guest;
@@ -142,5 +143,24 @@ public class MyRoomService implements RoomService{
             }
         }
         return availableRooms;
+    }
+    public void updateRoom(RoomDTO dto) throws NoSuchElementException{
+        Optional<Room> roomOptional = roomRepo.findByNumber(dto.getNumber());
+        if(roomOptional.isPresent()){
+            Room room = roomOptional.get();
+            room.setRent(dto.getRent());
+            room.setType(dto.getType());
+            room.setFloor(dto.getFloor());
+            if(dto.getStatus().equals("AVAILABLE")){
+                room.setStatus(RoomStatus.AVAILABLE);
+            }
+            if(dto.getStatus().equals("FULL")){
+                room.setStatus(RoomStatus.FULL);
+            }
+            if(dto.getStatus().equals("OUT OF SERVICE")){
+                room.setStatus(RoomStatus.OUT_OF_SERVICE);
+            }
+        }
+
     }
 }

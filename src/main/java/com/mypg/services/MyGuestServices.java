@@ -59,6 +59,7 @@ public class MyGuestServices implements GuestService {
             LocalDate day = guest.getRoomValidity();
             guestDTO.setRoomValidityInDays(ChronoUnit.DAYS.between(LocalDate.now(),day));
             guestDTO.setSecurityMoney(guest.getSecurityMoney());
+            guest.getInvoices().sort(Comparator.comparing(Invoice::getPaymentDate));
             return guestDTO;
         }
         throw new NoSuchElementException("Guest not found");
@@ -81,19 +82,30 @@ public class MyGuestServices implements GuestService {
 
     @Override
     public Guest saveGuestWithRoom(GuestDTO dto,Integer roomNumber) throws NoSuchRoom,RoomFilledException {
-
+        Guest guest = null;
+        if(dto.getMobile()!=null){
+            Optional<Guest> optional = guestRepo.findGuestByMobile(dto.getMobile());
+            if(optional.isPresent()){
+                guest = optional.get();
+            }
+        }
         Room room = roomService.getRoom(roomNumber);
         int emptyBeds = room.getNoOfBeds() - room.getGuestList().size();
         if(emptyBeds > 0){
             room.setNoOfBedEmpty(emptyBeds-1);
-            Guest guest = convertDtoToGuest(dto);
+            if(guest == null){
+                guest = convertDtoToGuest(dto);
+                guest = guestRepo.save(guest);
+            }
+            if(emptyBeds == 1){
+                room.setStatus(RoomStatus.FULL);
+            }
             guest.setRoom(room);
             guest.setCheckIN(LocalDate.now());
             guest.setRoomValidity(LocalDate.now());
             guest.setSecurityMoney(dto.getSecurityMoney());
-            guest.setSecurityMoney(dto.getSecurityMoney());
             guest.setStatus(GuestStatus.STAYING);
-            return guestRepo.save(guest);
+            return guest;
         }
         throw new RoomFilledException(roomNumber);
 
@@ -145,6 +157,9 @@ public class MyGuestServices implements GuestService {
         List<Guest> allGuests =  guestRepo.findAll();
         List<Guest> checkout = new ArrayList<>();
         for(Guest guest:allGuests){
+            if(guest == null || guest.getCheckOut() == null){
+                continue;
+            }
             if(guest.getStatus() == GuestStatus.CHECKOUT
                     && guest.getCheckOut().getMonth() == LocalDate.now().getMonth()){
                 checkout.add(guest);
@@ -185,9 +200,16 @@ public class MyGuestServices implements GuestService {
         Optional<Guest> optional = guestRepo.findGuestByMobile(mobile);
         if(optional.isPresent()){
             Guest guest = optional.get();
+            Room room = guest.getRoom();
+            room.getGuestList().remove(guest);
+            room.setNoOfBedEmpty(room.getNoOfBedEmpty()+1);
+            room.setStatus(RoomStatus.AVAILABLE);
+            roomRepo.save(room);
             guest.setRoom(null);
+            guest.setCheckOut(LocalDate.now());
             guest.setStatus(GuestStatus.CHECKOUT);
             guestRepo.save(guest);
+            return;
         }
         throw new NoSuchElementException("Guest with these "+ mobile +" mobile number not exist");
     }

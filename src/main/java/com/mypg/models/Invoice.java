@@ -19,4 +19,6 @@ public class Invoice extends BaseModel{
     private Double extraAmount;
     private String extraAmountNote;
     private LocalDate paymentDate;
+
+
 }
