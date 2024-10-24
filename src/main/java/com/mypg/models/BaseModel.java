@@ -13,7 +13,7 @@ import java.util.Date;
 @Getter
 public class BaseModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     Long id;
 
     @CreationTimestamp

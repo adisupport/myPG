@@ -46,16 +46,18 @@ public class BookingService{
             booking.setCheckIn(dto.getCheckInDate());
             booking.setAdvanceRentPayment(dto.getAdvanceRentPayment());
             System.out.println("-----------------Creating Invoice-----------------------");
-            invoiceService.createInvoice(
-                    dto.getRent(),
-                    dto.getAdvanceRentPayment(),
-                    dto.getSecurityMoney(),
-                    "",
-                    LocalDate.now().getMonth(),
-                    LocalDate.now(),
-                    guest
-                    );
-                    System.out.println("----------------Creating Invoice Successfully ----------------");
+            if(guest.getInvoices()==null || guest.getInvoices().isEmpty()){
+                invoiceService.createInvoice(
+                        dto.getRent(),
+                        dto.getAdvanceRentPayment(),
+                        dto.getSecurityMoney(),
+                        "",
+                        LocalDate.now().getMonth(),
+                        LocalDate.now(),
+                        guest
+                );
+                System.out.println("----------------Creating Invoice Successfully ----------------");
+            }
             System.out.println("-----------------Saving Booking Details---------------------");
             bookingRepo.save(booking);
             System.out.println("-------------Booking Save Successfully------------------");

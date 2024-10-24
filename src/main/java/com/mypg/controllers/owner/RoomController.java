@@ -71,6 +71,7 @@ public class RoomController {
         model.addAttribute("room",room);
         model.addAttribute("pageName","room");
         model.addAttribute("updateRoom",new RoomDTO());
+//        model.addAttribute("roomDTO",);
         return "/owner/pages/view_room";
     }
 
@@ -87,6 +88,7 @@ public class RoomController {
     @PostMapping("/edit")
     @ResponseBody
     public RoomDTO updateRoomRequest(RoomDTO room){
+
         return room;
     }
 }

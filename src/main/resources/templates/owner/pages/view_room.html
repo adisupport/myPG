@@ -60,24 +60,20 @@
         </a>
         <div class="page-title">
             <div class="d-flex justify-content-between mx-4 mb-3">
-                <span class="fs-3 text-primary">Room 101</span>
+                <span class="fs-3 text-primary" th:text="${'Room '+room.number}">Room 101</span>
                 <i class="fs-2 bx bx-edit" onclick="toggleEdit(true)"></i>
             </div>
             <hr/>
         </div>
         <div class="row">
             <!-- Images Section -->
-            <div class="col-md-6">
-                <div id="room-images" class="carousel slide" data-ride="carousel">
+            <div class="col-md-6" th:if="${room.images.size() > 0}">
+                <div id="room-images" class="carousel slide" data-ride="carousel" >
                     <div class="carousel-inner">
                         <!-- Dynamically populate room images -->
-                        <div class="carousel-item active">
-                            <img src="/path-to-image1.jpg" class="d-block w-100" alt="Room Image 1">
+                        <div class="carousel-item" th:each="url:${room.images}">
+                            <img src="/path-to-image1.jpg" th:src="${url}" class="d-block w-100" alt="Room Image 1">
                         </div>
-                        <div class="carousel-item">
-                            <img src="/path-to-image2.jpg" class="d-block w-100" alt="Room Image 2">
-                        </div>
-                        <!-- Add more images as needed -->
                     </div>
                     <a class="carousel-control-prev" href="#room-images" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -95,31 +91,31 @@
                 <h3>Room Details</h3>
                 <form class="p-3" id="roomForm" action="/owner/room/edit" th:action="@{/owner/room/edit}" th:object="${updateRoom}" method="post">
                     <div class="form-group">
-                        <label>Room Number</label>
-                        <p id="roomNumberDisplay">101</p>
+                        <label for="roomNumber">Room Number</label>
+                        <p id="roomNumberDisplay" th:text="${room.number}">101</p>
                         <input type="number" id="roomNumber" th:field="*{number}" class="form-control d-none" value="101" readonly>
                     </div>
                     <div class="row gx-1">
                         <div class="form-group col">
-                            <label>Number of Beds</label>
-                            <p id="bedsDisplay">2</p>
+                            <label for="beds">Number of Beds</label>
+                            <p id="bedsDisplay" th:text="${room.noOfBeds}">2</p>
                             <input type="number" id="beds" th:field="*{noOfBeds}" class="form-control d-none" value="2" readonly>
                         </div>
                         <div class="form-group col">
-                            <label>Empty Beds</label>
-                            <p id="emptyBedsDisplay">1</p>
+                            <label for="emptyBeds">Empty Beds</label>
+                            <p id="emptyBedsDisplay" th:text="${room.noOfBedEmpty}">1</p>
                             <input type="number" id="emptyBeds" class="form-control d-none" value="1" readonly>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col">
-                            <label>Room Type</label>
-                            <p id="typeDisplay">Standard</p>
+                            <label for="type">Room Type</label>
+                            <p id="typeDisplay" th:text="${room.type}">Standard</p>
                             <input type="text" id="type" class="form-control d-none" th:field="*{type}" value="Standard" readonly>
                         </div>
                         <div class="form-group col">
                             <label>Status</label>
-                            <p id="statusDisplay">Available</p>
+                            <p id="statusDisplay" th:text="${room.status}">Available</p>
                             <select th:field="*{status}" id="status" class="form-control d-none" name="status" disabled>
                                 <option value="Available">Available</option>
                                 <option value="Full">Full</option>
@@ -129,7 +125,7 @@
 
                     <div class="form-group">
                         <label>Rent</label>
-                        <p id="rentDisplay">$500</p>
+                        <p id="rentDisplay" th:text="${room.rent}">$500</p>
                         <input type="number" id="rent" th:field="*{rent}" class="form-control d-none" value="500" readonly>
                     </div>
 
@@ -154,23 +150,14 @@
                     </thead>
                     <tbody>
                     <!-- Dynamically populate guest data -->
-                    <tr>
-                        <td>John Doe</td>
-                        <td>30</td>
-                        <td>2024-10-01</td>
+                    <tr th:each="guest:${room.guestList}">
+                        <td th:text="${guest.profile.firstName + ' '+guest.profile.lastName}">John Doe</td>
+                        <td th:text="${guest.profile.age}">30</td>
+                        <td th:text="${guest.checkIN}">2024-10-01</td>
                         <td>
-                            <a href="/guest-details/1" class="btn btn-info btn-sm">View</a>
+                            <a href="/guest-details/1" th:href="@{'/owner/guest/'+${guest.mobile}}" class="btn btn-info btn-sm">View</a>
                         </td>
                     </tr>
-                    <tr>
-                        <td>Jane Smith</td>
-                        <td>28</td>
-                        <td>2024-10-05</td>
-                        <td>
-                            <a href="/guest-details/2" class="btn btn-info btn-sm">View</a>
-                        </td>
-                    </tr>
-                    <!-- Add more guests as needed -->
                     </tbody>
                 </table>
             </div>
