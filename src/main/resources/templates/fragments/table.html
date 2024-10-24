@@ -54,8 +54,8 @@
                     <th scope="col">Action</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr class="room_data text-bg-success text-center" th:each="guest: ${guests}">
+                <tbody class="text-center">
+                <tr class="room_data text-bg-success" th:each="guest: ${guests}">
 
                     <td th:text="${guest.id}"></td>
                     <td th:text="${guest.mobile}"></td>

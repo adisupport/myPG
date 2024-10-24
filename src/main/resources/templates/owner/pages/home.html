@@ -116,8 +116,9 @@
             <thead>
                 <tr>
                     <th>#Booking ID</th>
+                    <th>Room Number</th>
                     <th>Date</th>
-                    <th>First Name</th>
+                    <th>Full Name</th>
                     <th>Contact</th>
                     <th>paid</th>
                     <th>Status</th>
@@ -126,7 +127,8 @@
             <tbody>
             <tr th:each="book : ${booking.allBookings}">
                <td><a href="/booking/123" th:href="@{'/owner/booking/'+${book.id}}" th:text="${book.id}">123</a></td>
-               <td th:text="${book.bookingDate}">10-10-2012</td>
+                <td th:text="${book.room.number}">10-10-2012</td>
+                <td th:text="${book.bookingDate}">10-10-2012</td>
                <td th:text="${book.guest.profile.firstName + ' '+ book.guest.profile.lastName }">Sonu</td>
                <td><a href="owner/guest/91081251535" th:href="@{'/owner/guest/' + ${book.guest.mobile}}" th:text="${book.guest.mobile}" >91081251535</a></td>
                <td th:text="${book.rent}">₹ 7000</td>

@@ -145,6 +145,9 @@ public class MyGuestServices implements GuestService {
         List<Guest> allGuests =  guestRepo.findAll();
         List<Guest> checkout = new ArrayList<>();
         for(Guest guest:allGuests){
+            if(guest == null || guest.getCheckOut() == null){
+                continue;
+            }
             if(guest.getStatus() == GuestStatus.CHECKOUT
                     && guest.getCheckOut().getMonth() == LocalDate.now().getMonth()){
                 checkout.add(guest);
@@ -185,7 +188,12 @@ public class MyGuestServices implements GuestService {
         Optional<Guest> optional = guestRepo.findGuestByMobile(mobile);
         if(optional.isPresent()){
             Guest guest = optional.get();
+            Room room = guest.getRoom();
+            room.getGuestList().remove(guest);
+            room.setNoOfBedEmpty(room.getNoOfBedEmpty()+1);
+            roomRepo.save(room);
             guest.setRoom(null);
+            guest.setCheckOut(LocalDate.now());
             guest.setStatus(GuestStatus.CHECKOUT);
             guestRepo.save(guest);
         }

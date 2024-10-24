@@ -26,18 +26,17 @@ public class GuestController {
         out = System.out;
     }
     @GetMapping()
-
     public String getPage(Model model, HttpSession session){
 
         String message = (String) session.getAttribute("message");
-        session.setAttribute("error",null);
+        session.setAttribute("message",null);
         model.addAttribute("pageName", "guest");
         model.addAttribute("guestForm",new GuestDTO());
         out.println("Collection Guest Data");
         model.addAttribute("guests",guestService.getGuests());
         model.addAttribute("error",message);
 
-        out.println("-----Guest Page Requested");
+        out.println("-----Guest Page Requested------");
         return "owner/index";
 
     }
@@ -71,7 +70,13 @@ public class GuestController {
         guestService.addInvoice(invoice);
         return "redirect:/owner/guest/"+mobile;
     }
-
+    @GetMapping("/{mobile}/checkout")
+    public String checkout(@PathVariable("mobile") Long mobile,HttpSession session){
+        System.out.println("checkout guest " + mobile);
+        guestService.checkout(mobile);
+        session.setAttribute("message","Guest checked out successfully");
+        return "redirect:/owner/guest";
+    }
     @ExceptionHandler(InvoiceException.class)
     public String handleException(InvoiceException e, HttpSession session){
         session.setAttribute("message",e.getMessage());
