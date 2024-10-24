@@ -63,7 +63,7 @@ public class RoomController {
         }catch (Exception e){
             session.setAttribute("errorMessage",e.getMessage());
         }
-        return "redirect:/owner/room";
+        return "redirect:owner/room";
     }
     @GetMapping("/{id}")
     public String getRoomDetails(@PathVariable Integer id, Model model) throws NoSuchRoom {
@@ -72,18 +72,18 @@ public class RoomController {
         model.addAttribute("pageName","room");
         model.addAttribute("updateRoom",new RoomDTO());
 //        model.addAttribute("roomDTO",);
-        return "/owner/pages/view_room";
+        return "owner/pages/view_room";
     }
 
     @ExceptionHandler(NoSuchElementException.class)
     public String noSuchRoom(NoSuchElementException exception,Model model){
-        return "/owner/exception";
+        return "owner/exception";
     }
 
     @ExceptionHandler(NoSuchRoom.class)
     public String noSuchRoom(NoSuchRoom exception, Model model, HttpSession session){
         session.setAttribute("errorMessage","error: Room,You are looking for not exists");
-        return "/owner/room";
+        return "owner/room";
     }
     @PostMapping("/edit")
     @ResponseBody

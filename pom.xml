@@ -10,8 +10,8 @@
     </parent>
     <groupId>com</groupId>
     <artifactId>MyPG</artifactId>
-    <version>0.0.1</version>
-    <name>MyPG</name>
+    <version>1.0</version>
+    <name>PGEase</name>
     <description>MyPG</description>
     <url/>
     <licenses>
