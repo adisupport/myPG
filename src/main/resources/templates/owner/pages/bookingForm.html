@@ -162,8 +162,7 @@
                             Room Number
                         </label>
                         <div class="input-group">
-                            <input th:if="${roomId == 0}" th:field="*{roomNumber}" class="form-control" id="room" type="text" placeholder="101"/>
-                            <input th:if="${roomId!=null && roomId != 0}" onkeypress="return false" th:field="*{roomNumber}" th:placeholder="${roomId}" class="form-control" id="room" type="text" th:value="${roomId}"/>
+                            <input th:field="*{roomNumber}" class="form-control" id="room" type="text" placeholder="101"/>
                             <i class='bx bxs-school input-group-text'></i>
                         </div>
                     </div>
@@ -172,7 +171,7 @@
                             Check In Date
                         </label>
                         <div class="input-group">
-                            <input th:field="*{checkInDate}" class="form-control" id="checkin" type="date" placeholder="101"/>
+                            <input th:field="*{checkInDate}" class="form-control" required id="checkin" type="date" placeholder="101"/>
                         </div>
                     </div>
                 </div>
@@ -196,10 +195,10 @@
                         </div>
                     </div>
                     <div class="col-4">
-                        <label for="advancePayment" class="form-label">Advance Rent Paid</label>
+                        <label for="advancePayment" class="form-label">Total Amount Paid</label>
                         <div class="input-group">
                             <i class="bx bx-rupee input-group-text"></i>
-                            <input type="text" th:field="*{advanceRentPayment}" required class="form-control" id="advancePayment"/>
+                            <input type="text" th:field="*{advanceRentPayment}" class="form-control" id="advancePayment" required/>
                         </div>
                     </div>
                 </div>

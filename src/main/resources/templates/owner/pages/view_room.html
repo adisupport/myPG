@@ -132,7 +132,7 @@
                     <!-- Edit and Save Buttons -->
                     <button type="button" id="editBtn" class="btn btn-primary mt-3 d-none" onclick="toggleEdit(true)">Edit Room</button>
                     <button type="submit" id="saveBtn" class="btn btn-success mt-3 d-none" onclick="toggleEdit(false)">Save Changes</button>
-                    <a href=`/owner/booking` th:href="@{/owner/booking?roomId=102}" class="btn btn-secondary mt-3">Book Room</a>
+                    <a th:if="${room.status.equals(T(com.mypg.models.RoomStatus).AVAILABLE.toString())}" href=`/owner/booking` th:href="@{/owner/booking?roomId=102}" class="btn btn-secondary mt-3">Book Room</a>
                 </form>
             </div>
         </div>

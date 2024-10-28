@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TEST</title>
+</head>
+<body>
+    <form th:if="${dto}" th:object="${dto}" th:action="@{/test}" method="post">
+        <label>
+            <input th:field="*{age}"/>
+        </label>
+        <label>
+            <input th:field="*{name}" th:value="${dto.name}"  />
+        </label>
+        <label>
+            <input th:field="*{id}" th:value="${dto.id}"  />
+        </label>
+        <button type="submit">Submit</button>
+    </form>
+<h1>HELLO </h1>
+</body>
+</html>

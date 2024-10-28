@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public interface GuestService {
@@ -25,5 +26,5 @@ public interface GuestService {
     public List<Guest> listOfGuestCheckOut();
     public List<Guest> getAllStayingGuest();
     public void addInvoice(Invoice invoice) throws InvoiceException;
-    public Guest getGuestByMobile(Long mobile) throws NoSuchElementException;
+    public Optional<Guest> getGuestByMobile(Long mobile) throws NoSuchElementException;
 }

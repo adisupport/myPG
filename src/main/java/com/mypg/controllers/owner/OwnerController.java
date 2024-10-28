@@ -36,10 +36,12 @@ public class OwnerController {
         return "owner/index";
     }
     @GetMapping("/booking")
-    public String getBookingForm(@RequestParam(value = "roomId",defaultValue = "0")Integer roomId,Model model){
+    public String getBookingForm(@RequestParam(value = "roomId",defaultValue = "0")Integer roomId,
+                                 Model model){
+        BookingDTO bookingDTO = new BookingDTO();
+        bookingDTO.setRoomNumber(roomId);
         model.addAttribute("pageName","booking");
-        model.addAttribute("bookingForm",new BookingDTO());
-        model.addAttribute("roomId",roomId);
+        model.addAttribute("bookingForm",bookingDTO);
         return "owner/pages/bookingForm";
     }
     @PostMapping("/booking")

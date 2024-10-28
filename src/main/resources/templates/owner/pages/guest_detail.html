@@ -145,7 +145,8 @@
                 <span class="fs-1 text-primary" th:text="${guest.profile.firstName+' '+guest.profile.lastName}">Ajay Kumar</span>
                 <div class="d-flex align-items-center">
                     <a class="mx-3" href="/owner/guest/edit"><i class="fs-2 bx bx-edit"></i></a>
-                    <a th:if="${guest.status != 'CHECKOUT'}" th:href="@{'/owner/guest/'+${guest.mobile}+'/checkout'}" class="btn btn-danger">Checkout</a>
+                    <a th:if="${guest.status.toString() != 'CHECKOUT'}" th:href="@{'/owner/guest/'+${guest.mobile}+'/checkout'}" class="btn btn-danger">Checkout</a>
+<!--                    <a th:if="${guest.status.toString() == 'CHECKOUT'}" th:href="@{'/owner/guest/'+${guest.mobile}+'/delete'}" class="btn btn-danger">DELETE</a>-->
                 </div>
 
             </div>
@@ -155,19 +156,23 @@
             <div class="row gx-5">
                 <div class="col guest-details details-section border rounded p-3">
                     <h3 class="text-secondary">Guest Details</h3>
-                    <div class="row">
-                        <span class="label col-4 fw-bold">Full Name</span>
-                        <span class="value col-8" th:text="${guest.profile.firstName+' '+guest.profile.lastName}">Ajay Kumar</span>
+                    <div class = "row">
+                        <div class="col">
+                            <img src="/images/user-icon.svg" alt="User Image" width="100%">
+                        </div>
+                        <div class="col-8">
+                            <div class="row">
+                                <span class="label col-6 fw-bold">Full Name</span>
+                                <span class="value col-6" th:text="${guest.profile.firstName+' '+guest.profile.lastName}">Ajay Kumar</span>
+                            </div>
+<!--                            <span class="value col-8" th:text="${guest.profile.firstName+' '+guest.profile.lastName}">Ajay Kumar</span>    -->
+                            <div class="row">
+                                <span class="label col-6 fw-bold">Mobile</span>
+                                <span class="value col-6 text-primary" th:text="${guest.mobile}">31</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="row">
-                        <span class="label col-4 fw-bold">Mobile</span>
-                        <span class="value col-8 text-primary" th:text="${guest.mobile}">31</span>
-                    </div>
-                    <div class="row">
-                        <span class="label col-4">Age</span>
-                        <span class="value col-8" th:text="${guest.profile.age}">24</span>
-                    </div>
-                    <div class="row hide collapse">
+                    <div class="hide collapse">
                         <div class="row" th:if="${guest.profile.address.length()}">
                             <span class="label col-4">Address</span>
                             <span class="value col-8" th:text="${guest.profile.address}">SNR PG,1st Cross,1st Main Road,N.S Palya Road, BTM
@@ -212,24 +217,27 @@
                     </div>
                     <div class="row">
                         <span class="label col-6">Guest Status</span>
-                        <span class="value col-6" th:text="${guest.status}">Staying</span>
+                        <span class="value col-6 text-warning" th:if="${guest.status.toString() == 'CHECKOUT'}" th:text="${guest.status}">Staying</span>
+                        <span class="value col-6 text-info" th:if="${guest.status.toString() != 'CHECKOUT'}" th:text="${guest.status}">Staying</span>
                     </div>
                     <div class="row" th:if="${guest.room}">
                         <span class="label col-6">Room Number</span>
                         <a class="value col-6" th:href="@{'/owner/room/'+${guest.room.number}}" th:text="${guest.room.number!=null?guest.room.number:'101'}">
                             101
                         </a>
-
+                    </div>
+                    <div class="row" th:if="${guest.room != null &&  guest.roomValidityInDays!= null && guest.roomValidityInDays  < 0}">
+                        <span class="label col-6">Rent Status</span>
+                        <span class="value col-6 text-danger" th:text="Rent Pending">24</span>
                     </div>
                     <div class="hide collapse">
                         <div class="row">
                             <span class="label col-6">Security Money Paid</span>
                             <span class="value col-6" th:text="${guest.securityMoney!=null?guest.securityMoney:'2000'}">2000</span>
                         </div>
-                        <div class="row">
-                            <span class="label col-6">Room Validity</span>
-                            <span class="value col-6"
-                                  th:text="${guest.roomValidityInDays!=null?guest.roomValidityInDays:'30'}">24</span>
+                        <div class="row" th:if="${guest.room != null &&  guest.roomValidityInDays!= null}">
+                            <span class="label col-6">Rent Status</span>
+                            <span class="value col-6 text-danger" th:text="${guest.roomValidityInDays}">24</span>
                         </div>
                     </div>
                 </div>

@@ -31,6 +31,7 @@ public class Guest  extends BaseModel{
     @ManyToOne
     Room room;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "guest")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "guest",orphanRemoval = true)
+    @Cascade(CascadeType.ALL)
     List<Invoice> invoices;
 }

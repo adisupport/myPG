@@ -1,6 +1,7 @@
 package com.mypg.controllers.owner;
 
 import com.mypg.dtos.GuestDTO;
+import com.mypg.dtos.GuestListDTO;
 import com.mypg.dtos.GuestResponseDTO;
 import com.mypg.exceptions.InvoiceException;
 import com.mypg.models.Guest;
@@ -14,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/owner/guest")
@@ -33,10 +36,15 @@ public class GuestController {
         model.addAttribute("pageName", "guest");
         model.addAttribute("guestForm",new GuestDTO());
         out.println("Collection Guest Data");
-        model.addAttribute("guests",guestService.getGuests());
+        List<Guest> guestList = guestService.getGuests();
+        List<GuestListDTO> guestListDTOS = new ArrayList<>();
+        for(Guest guest : guestList){
+            guestListDTOS.add(new GuestListDTO(guest));
+        }
+        model.addAttribute("guests",guestListDTOS);
         model.addAttribute("error",message);
 
-        out.println("-----Guest Page Requested------");
+        out.println("-------Guest Page Requested------");
         return "owner/index";
 
     }
@@ -47,7 +55,7 @@ public class GuestController {
         }else{
             session.setAttribute("message","Guest already exists or Something went wrong");
         }
-        return "redirect:/owner/guest";
+        return "redirect:owner/guest";
     }
 
     @GetMapping("/{mobile}")
@@ -58,28 +66,36 @@ public class GuestController {
         Invoice invoice = new Invoice();
         invoice.setGuest(guest);
         model.addAttribute("invoiceForm",invoice);
-        return "/owner/pages/guest_detail";
+        return "owner/pages/guest_detail";
     }
     @PostMapping("/{mobile}/invoice")
 //    @ResponseBody
-    public String handleCreateInvoice(Invoice invoice,@PathVariable("mobile") Long mobile, Model model)
+    public String handleCreateInvoice(Invoice invoice,@PathVariable("mobile") Long mobile)
     throws InvoiceException
     {
-        invoice.setGuest(guestService.getGuestByMobile(mobile));
-
+        try {
+            invoice.setGuest(guestService.getGuestByMobile(mobile).get());
+        }catch (Exception r){
+            throw new InvoiceException(r.getMessage());
+        }
         guestService.addInvoice(invoice);
-        return "redirect:/owner/guest/"+mobile;
+        return "redirect:owner/guest/"+mobile;
     }
     @GetMapping("/{mobile}/checkout")
     public String checkout(@PathVariable("mobile") Long mobile,HttpSession session){
-        System.out.println("checkout guest " + mobile);
+        System.out.println("checkout guest" + mobile);
         guestService.checkout(mobile);
         session.setAttribute("message","Guest checked out successfully");
-        return "redirect:/owner/guest";
+        return "redirect:owner/guest";
+    }
+    @GetMapping("/{mobile}/delete")
+    public String delete(@PathVariable("mobile") Long mobile){
+        guestService.deleteGuest(mobile);
+        return "redirect:owner/guest";
     }
     @ExceptionHandler(InvoiceException.class)
     public String handleException(InvoiceException e, HttpSession session){
         session.setAttribute("message",e.getMessage());
-        return "redirect:/owner";
+        return "redirect:owner";
     }
 }

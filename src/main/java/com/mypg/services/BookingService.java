@@ -9,33 +9,43 @@ import com.mypg.models.Booking;
 import com.mypg.models.Guest;
 import com.mypg.models.Room;
 import com.mypg.repo.BookingRepo;
+import com.mypg.repo.GuestRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Book;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
 public class BookingService{
+    private final GuestRepo guestRepo;
     GuestService guestService;
     RoomService roomService;
     InvoiceService invoiceService;
     BookingRepo bookingRepo;
-    BookingService(RoomService roomService, InvoiceService invoiceService, BookingRepo bookingRepo,GuestService guestService){
+    BookingService(RoomService roomService, InvoiceService invoiceService, BookingRepo bookingRepo, GuestService guestService, GuestRepo guestRepo){
         this.roomService = roomService;
         this.invoiceService = invoiceService;
         this.bookingRepo = bookingRepo;
         this.guestService=guestService;
-
+        this.guestRepo = guestRepo;
     }
     @Transactional
     public void createBooking(BookingDTO dto) throws NoSuchRoom, InvoiceException, RoomFilledException {
         System.out.println("------------DTO Received to Booking Service------------------");
-        Guest guest;
         try{
-            guest = guestService.saveGuestWithRoom(dto,dto.getRoomNumber());
+            Optional<Guest> optionalguest = guestService.getGuestByMobile(dto.getMobile());
+            Guest guest = null;
+            if(optionalguest.isEmpty()){
+                guest = guestService.saveGuestWithRoom(dto,dto.getRoomNumber());
+            }else{
+                guest = optionalguest.get();
+            }
+
             System.out.println("------------------Guest Save Successfully----------------");
             Booking booking  = new Booking();
             booking.setRoom(guest.getRoom());

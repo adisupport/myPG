@@ -102,7 +102,7 @@ public class MyGuestServices implements GuestService {
             }
             guest.setRoom(room);
             guest.setCheckIN(LocalDate.now());
-            guest.setRoomValidity(LocalDate.now());
+            guest.setRoomValidity(LocalDate.now().plusMonths(1));
             guest.setSecurityMoney(dto.getSecurityMoney());
             guest.setStatus(GuestStatus.STAYING);
             return guest;
@@ -111,12 +111,8 @@ public class MyGuestServices implements GuestService {
 
     }
     @Override
-    public Guest getGuestByMobile(Long mobile) throws NoSuchElementException{
-        Optional<Guest> optional = guestRepo.findGuestByMobile(mobile);
-        if(optional.isPresent()) {
-            return optional.get();
-        }
-        throw new NoSuchElementException("Guest not found");
+    public Optional<Guest> getGuestByMobile(Long mobile) throws NoSuchElementException{
+        return guestRepo.findGuestByMobile(mobile);
     }
     @Override
     public List<Guest> findGuestByRoom(Integer roomNumber) throws NoSuchRoom  {
@@ -206,12 +202,16 @@ public class MyGuestServices implements GuestService {
             room.setStatus(RoomStatus.AVAILABLE);
             roomRepo.save(room);
             guest.setRoom(null);
+            guest.setRoomValidity(LocalDate.now());
             guest.setCheckOut(LocalDate.now());
             guest.setStatus(GuestStatus.CHECKOUT);
             guestRepo.save(guest);
             return;
         }
         throw new NoSuchElementException("Guest with these "+ mobile +" mobile number not exist");
+    }
+    public void delete(Guest guest) throws NoSuchElementException{
+        guestRepo.delete(guest);
     }
 
     private Guest convertDtoToGuest(GuestDTO dto) {
